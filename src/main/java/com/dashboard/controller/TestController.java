@@ -1,4 +1,4 @@
-package com.dashboard.controllers;
+package com.dashboard.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,5 +25,10 @@ public class TestController {
     @PreAuthorize("hasRole('ADMIN')")
     public String adminAccess() {
         return "Admin Board.";
+    }
+
+    @GetMapping("/all2")
+    public String allAccess2() {
+        return "Public Content2.";
     }
 }

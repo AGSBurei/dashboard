@@ -1,4 +1,4 @@
-package com.dashboard.controllers;
+package com.dashboard.controller;
 
 import com.dashboard.models.ERole;
 import com.dashboard.models.Role;
