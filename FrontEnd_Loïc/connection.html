@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html class="theme-l">
+    <head>
+        <title>DashBoard Project - Connexion</title>
+        <link rel="icon" href="images/stats_.png" type="image/png">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="style.css">
+        <script src="scripts.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+
+    </head>
+
+    <body class="bg">
+        <!-----Header------>
+        <header class="">
+            <div class="header-menu"></div>
+
+            <div class="header-title"></div>
+
+            <div class="day-night day-night2" onclick="switch_()">
+                <div class="day-night-toggle"></div>
+            </div>
+
+        </header>
+        <!-----Main------>
+        <main class="">
+            <div class="c-main-block">
+                <div class="c-form-header">
+                    <h1 class="c-form-title1">Login</h1>
+                    <h1 class="c-form-title2">Create Account</h1>
+                </div>
+                <div class="c-form-header2">
+                    <p class="c-form-quote1">Don't have an account?<span class="c-span" onclick="inscription()">Create your account!</span></p>
+                    <p class="c-form-quote2">Already have an account?<span class="c-span" onclick="inscription()">Log in with your account!</span></p>
+                </div>
+                <div class="c-form-block t">
+                    <form class="c-form">
+                        <div class="c-form-hide"><input class="c-form-input c2" type="email" name="email" placeholder="eMail"><br></div>
+                        <input class="c-form-input c1" type="text" name="pseudo" placeholder="Name"><br>
+
+                        <input class="c-form-input c1" type="text" name="mdp" id="mdp" placeholder="password"><br>
+                        <div class="c-form-hide"><input class="c-form-input c2" type="text" name="mdp" id="mdp" placeholder="confirm password"><br></div>
+
+                        <!--<label class="cb-c"><p>Remember me</p>
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>-->
+                        <div class="c-checkbox-zone">
+                            <div class="c-checkbox" onclick="checkbox()"></div><p  class="c-checkbox-txt">Stay connected</p>
+                        </div>
+                        <input type="checkbox" class="c-checkbox-inp">
+
+                        <button class="c-form-button">Connection</button>
+                    </form>
+                </div>
+
+                <div class="c-form-block2">
+                    <p>-or connect with-</p>
+                    <div class="c-OOT c-Google"></div>
+                    <div class="c-OOT c-Twitter"></div>
+                </div>
+                <div class="c-form-footer">
+                    <h6>A WebApp created par des beaux gosses</h6>
+                </div>
+                
+            </div>
+        </main>
+        <!-----Footer------>
+        <footer class="">
+            
+        </footer>
+
+    </body>
+</html>
