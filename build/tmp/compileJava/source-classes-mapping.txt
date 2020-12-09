@@ -1,10 +1,38 @@
+com/dashboard/models/User.java
+ com.dashboard.models.User
+com/dashboard/models/Role.java
+ com.dashboard.models.Role
+com/dashboard/payload/response/MessageResponse.java
+ com.dashboard.payload.response.MessageResponse
+com/dashboard/security/services/UserDetailsImpl.java
+ com.dashboard.security.services.UserDetailsImpl
+com/dashboard/payload/request/SignupRequest.java
+ com.dashboard.payload.request.SignupRequest
+com/dashboard/models/ERole.java
+ com.dashboard.models.ERole
+com/dashboard/payload/response/JwtResponse.java
+ com.dashboard.payload.response.JwtResponse
+com/dashboard/security/jwt/AuthTokenFilter.java
+ com.dashboard.security.jwt.AuthTokenFilter
+com/dashboard/repository/UserRepository.java
+ com.dashboard.repository.UserRepository
+com/dashboard/repository/RoleRepository.java
+ com.dashboard.repository.RoleRepository
 com/dashboard/DemoApplication.java
  com.dashboard.DemoApplication
-com/dashboard/restservice/Greeting.java
- com.dashboard.restservice.Greeting
-com/dashboard/restservice/GreetingController.java
- com.dashboard.restservice.GreetingController
-com/dashboard/config/SecurityConfig.java
- com.dashboard.config.SecurityConfig
+com/dashboard/controllers/TestController.java
+ com.dashboard.controllers.TestController
+com/dashboard/security/WebSecurityConfig.java
+ com.dashboard.security.WebSecurityConfig
+com/dashboard/controllers/AuthController.java
+ com.dashboard.controllers.AuthController
+com/dashboard/security/jwt/JwtUtils.java
+ com.dashboard.security.jwt.JwtUtils
+com/dashboard/payload/request/LoginRequest.java
+ com.dashboard.payload.request.LoginRequest
+com/dashboard/security/services/UserDetailsServiceImpl.java
+ com.dashboard.security.services.UserDetailsServiceImpl
+com/dashboard/security/jwt/AuthEntryPointJwt.java
+ com.dashboard.security.jwt.AuthEntryPointJwt
 com/dashboard/ServletInitializer.java
  com.dashboard.ServletInitializer
