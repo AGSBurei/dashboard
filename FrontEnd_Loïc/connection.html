@@ -43,10 +43,15 @@
                 <div class="c-form-block t">
                     <form class="c-form">
                         <div class="c-form-hide"><input class="c-form-input c2" type="email" name="email" placeholder="eMail"><br></div>
+                            <div class="c-error-zone" id="error-mail">Erreur</div>
+
                         <input class="c-form-input c1" type="text" name="pseudo" placeholder="Name"><br>
+                            <div class="c-error-zone" id="error-name">Erreur</div>
 
                         <input class="c-form-input c1" type="text" name="mdp" id="mdp" placeholder="password"><br>
+                            <div class="c-error-zone" id="error-mdp">Erreur</div>
                         <div class="c-form-hide"><input class="c-form-input c2" type="text" name="mdp" id="mdp" placeholder="confirm password"><br></div>
+                            <div class="c-error-zone" id="error-mdp2">Erreur</div>
 
                         <!--<label class="cb-c"><p>Remember me</p>
                             <input type="checkbox">
@@ -57,8 +62,11 @@
                         </div>
                         <input type="checkbox" class="c-checkbox-inp">
 
-                        <button class="c-form-button">Connection</button>
+                        
                     </form>
+                    <button class="c-form-button" onclick="c_notif()">Connection</button>
+                        <!--<img src="gif.gif" alt="Computer Man" style="width:48px;height:48px;">-->
+                        <img src="images/null.png" alt="Computer Man" class="c-notif">
                 </div>
 
                 <div class="c-form-block2">
