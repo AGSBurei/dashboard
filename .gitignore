@@ -17,10 +17,8 @@ argfile*
 pom.xml
 activemq-data/
 
-<<<<<<< HEAD
-=======
+
 front/node_modules/
->>>>>>> about
 node_modules/
 vendor/
 
