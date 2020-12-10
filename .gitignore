@@ -17,6 +17,10 @@ argfile*
 pom.xml
 activemq-data/
 
+front/node_modules/
+node_modules/
+vendor/
+
 classes/
 /build
 buildSrc/build
