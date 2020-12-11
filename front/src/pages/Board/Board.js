@@ -1,20 +1,27 @@
 import React, {useState, useEffect} from "react";
-import { ReactSortable } from "react-sortablejs";
+import {ReactSortable} from "react-sortablejs";
+import {useHistory} from "react-router-dom";
 
-
-import UserService from "../../services/user.service";
+import AuthService from "../../services/auth.service";
 import Widget from "../../components/Widget";
 
-const Board = ({user, switchDay}) => {
+const Board = ({switchDay}) => {
+    const history = useHistory()
+
+    const [currentUser, setCurrentUser] = useState(undefined);
     const [widgets, setWidgets] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
 
     useEffect(() => {
-        console.log("load", user)
-        // switchDay()
+        const user = AuthService.getCurrentUser();
 
+        if (user) {
+            setCurrentUser(user);
+        } else {
+            history.push("/login");
+        }
         setWidgets([...Array(12)].map((e, i) => <Widget name={"Widget " + i} key={Math.random()}>♦</Widget>))
-    }, [switchDay, user]);
+    }, [history]);
 
     const renderWidgets = () => {
         return (
@@ -50,7 +57,8 @@ const Board = ({user, switchDay}) => {
                     <p>Hello User 01</p>
                     <div className="header-user-pfp"/>
                     <div className="menu-dropdown">
-                        <a className="menu-list" href="/login" id="disconnection">Déconnexion</a>
+                        <a className="menu-list" onClick={AuthService.logout} href="/login"
+                           id="disconnection">Déconnexion</a>
                     </div>
                 </div>
 
@@ -58,7 +66,7 @@ const Board = ({user, switchDay}) => {
             {/*<!-----Main------>*/}
             <main className="">
                 <div className="main-block">
-                        {renderWidgets()}
+                    {renderWidgets()}
                 </div>
             </main>
             <footer>
