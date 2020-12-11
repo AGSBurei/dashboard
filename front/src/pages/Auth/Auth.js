@@ -121,13 +121,13 @@ const Auth = ({switchDay}) => {
                     </div>
                     <div className="c-form-block t">
                         <form className={`c-form ${inscription ? " inscription" : ""}`}>
-                            <div>
+                            <div className="c-form-input-wrapper">
                                 <input className="c-form-input" type="email" name="email" onKeyUp={onFormChange}
                                        placeholder="eMail"/>
                                 <div className="c-error-zone" id="error-mail">Not a valid email</div>
                             </div>
 
-                            <div className="c-form-input-wrapper">
+                            <div>
                                 <input className="c-form-input" type="text" name="username" onKeyUp={onFormChange}
                                        placeholder="Name"/>
                                 <div className="c-error-zone" id="error-name">Error pseudo</div>
