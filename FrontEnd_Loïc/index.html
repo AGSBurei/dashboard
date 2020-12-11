@@ -14,12 +14,18 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js"></script> <!--Drag & Drop-->
+
+        <script src="jquery.1.12.4.min.js"></script>
+		<script src="jquery.includeHTML.min.js"></script>
     </head>
 
     <body class="bg">
         <!-----Header------>
         <header class="">
-            <div class="header-menu"></div>
+            <div class="header-menu">
+                <button class="menu-button" onclick="set_id()">Add new</button>
+                <button class="menu-button" onclick="">Edit Board</button>
+            </div>
 
             <div class="header-title"></div>
 
@@ -44,129 +50,146 @@
                     <!--<div class="wrapper">-->
 
 
-                    <div class="container-block">
-                        <div class="container-bd"></div>
-                        <div class="container-bg">
-                            <div class="container-header">
-                                <div class="container-logo t"></div>
-                                <h3>Widget 01</h3>
-                                <div class="container-line"></div>
-                                <div class="container-more t"></div>
-                            </div>
-                            <div class="container-api">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-block">
-                        <div class="container-bd"></div>
-                        <div class="container-bg">
-                            <div class="container-header">
-                                <div class="container-logo t"></div>
-                                <h3>Widget 02</h3>
-                                <div class="container-line"></div>
-                                <div class="container-more t"></div>
-                            </div>
-                            <div class="container-api">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-block">
-                        <div class="container-bd"></div>
-                        <div class="container-bg">
-                            <div class="container-header">
-                                <div class="container-logo t"></div>
-                                <h3>Widget 03</h3>
-                                <div class="container-line"></div>
-                                <div class="container-more t"></div>
-                            </div>
-                            <div class="container-api">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-block">
-                        <div class="container-bd"></div>
-                        <div class="container-bg">
-                            <div class="container-header">
-                                <div class="container-logo t"></div>
-                                <h3>Widget 04</h3>
-                                <div class="container-line"></div>
-                                <div class="container-more t"></div>
-                            </div>
-                            <div class="container-api">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container-block">
-                        <div class="container-bd"></div>
-                        <div class="container-bg">
-                            <div class="container-header">
-                                <div class="container-logo t"></div>
-                                <h3>Widget 05</h3>
-                                <div class="container-line"></div>
-                                <div class="container-more t"></div>
-                            </div>
-                            <div class="container-api">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-block">
-                        <div class="container-bd"></div>
-                        <div class="container-bg">
-                            <div class="container-header">
-                                <div class="container-logo t"></div>
-                                <h3>Widget 06</h3>
-                                <div class="container-line"></div>
-                                <div class="container-more t"></div>
-                            </div>
-                            <div class="container-api">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-block">
-                        <div class="container-bd"></div>
-                        <div class="container-bg">
-                            <div class="container-header">
-                                <div class="container-logo t"></div>
-                                <h3>Widget 07</h3>
-                                <div class="container-line"></div>
-                                <div class="container-more t"></div>
-                            </div>
-                            <div class="container-api">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-block">
-                        <div class="container-bd"></div>
-                        <div class="container-bg">
-                            <div class="container-header">
-                                <div class="container-logo t"></div>
-                                <h3>Widget 08</h3>
-                                <div class="container-line"></div>
-                                <div class="container-more t"></div>
-                            </div>
-                            <div class="container-api">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container-block">1</div>
-                    <div class="container-block">2</div>
-                    <div class="container-block">3</div>
-                    <div class="container-block">4</div>
                     
-                    <div class="container-block">5</div>
-                    <div class="container-block">6</div>
-                    <div class="container-block">7</div>
-                    <div class="container-block">8</div>
+
+                    <div class="container-block wid-meteo" id="">
+                        <div class="container-bd"></div>
+                        <div class="container-bg">
+                            <div class="container-header">
+                                <div class="container-logo"></div>
+                                <h3>Météo | Temps</h3>
+                                <div class="container-line"></div>
+                                <div class="container-more" onclick="open_widgetmenu(this)">
+                                    <div class="widget-menu">
+                                        <div class="widget-menu-opt" onclick="remove_widget(this)">Delete</div>
+                                        <div class="widget-menu-opt">Delete</div>
+                                        <div class="widget-menu-opt">Delete</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-api">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-block wid-meteo" id="">
+                        <div class="container-bd"></div>
+                        <div class="container-bg">
+                            <div class="container-header">
+                                <div class="container-logo"></div>
+                                <h3>Météo | Température</h3>
+                                <div class="container-line"></div>
+                                <div class="container-more" onclick="open_widgetmenu(this)">
+                                    <div class="widget-menu">
+                                        <div class="widget-menu-opt" onclick="remove_widget(this)">Delete</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-api">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-block wid-stats" id="">
+                        <div class="container-bd"></div>
+                        <div class="container-bg">
+                            <div class="container-header">
+                                <div class="container-logo"></div>
+                                <h3>Stats | Youtube</h3>
+                                <div class="container-line"></div>
+                                <div class="container-more" onclick="open_widgetmenu(this)">
+                                    <div class="widget-menu">
+                                        <div class="widget-menu-opt" onclick="remove_widget(this)">Delete</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-api">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-block wid-stats" id="">
+                        <div class="container-bd"></div>
+                        <div class="container-bg">
+                            <div class="container-header">
+                                <div class="container-logo"></div>
+                                <h3>Stats | Facebook</h3>
+                                <div class="container-line"></div>
+                                <div class="container-more"></div>
+                            </div>
+                            <div class="container-api">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-block wid-stats" id="">
+                        <div class="container-bd"></div>
+                        <div class="container-bg">
+                            <div class="container-header">
+                                <div class="container-logo"></div>
+                                <h3>Stats | Twitter</h3>
+                                <div class="container-line"></div>
+                                <div class="container-more"></div>
+                            </div>
+                            <div class="container-api">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-block wid-stats" id="">
+                        <div class="container-bd"></div>
+                        <div class="container-bg">
+                            <div class="container-header">
+                                <div class="container-logo"></div>
+                                <h3>Stats | TikTok</h3>
+                                <div class="container-line"></div>
+                                <div class="container-more"></div>
+                            </div>
+                            <div class="container-api">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-block wid-youtube" id="">
+                        <div class="container-bd"></div>
+                        <div class="container-bg">
+                            <div class="container-header">
+                                <div class="container-logo"></div>
+                                <h3>Youtube</h3>
+                                <div class="container-line"></div>
+                                <div class="container-more"></div>
+                            </div>
+                            <div class="container-api">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-block wid-new" id="">
+                        <div class="container-bd"></div>
+                        <div class="container-bg">
+                            <div class="container-new" onclick="new_widget_list()">
+                                <div class="widget-list">
+                                    <div class="widget-list-opt">Météo | Temps</div>
+                                    <div class="widget-list-opt">Météo | Températures</div>
+                                    <div class="widget-list-opt">Stats | Youtube</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-block"></div>
+                    <div class="container-block"></div>
+                    <div class="container-block"></div>
+                    <div class="container-block"></div>
+                    
+                    <div class="container-block"></div>
+                    <div class="container-block"></div>
+                    <div class="container-block"></div>
+                    <div class="container-block"></div>
                 <!--</div>---End Wrapper------>
                 </div>
             </div>
@@ -179,7 +202,8 @@
         <script>
             const dragArea = document.querySelector(".main-container");
             new Sortable(dragArea, {
-              animation: 350
+                handle: '.container-more',
+                animation: 350
             });
         </script>
     </body>
