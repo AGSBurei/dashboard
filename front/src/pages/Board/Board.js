@@ -4,11 +4,38 @@ import {useHistory} from "react-router-dom";
 
 import AuthService from "../../services/auth.service";
 import Widget from "../../components/Widget";
+import WidgetList from "../../components/WidgetList/WidgetList";
+
+const WIDGETS_ARRAY = [
+    {
+        id: 1,
+        type: "null"
+    },{
+        id: 2,
+        type: "null"
+    },{
+        id: 3,
+        type: "null"
+    },{
+        id: 4,
+        type: "null"
+    },{
+        id: 5,
+        type: "null"
+    },{
+        id: 6,
+        type: "null"
+    },{
+        id: 7,
+        type: "null"
+    },
+]
 
 const Board = ({switchDay}) => {
     const history = useHistory()
 
-    const [currentUser, setCurrentUser] = useState(undefined);
+    const [showWidgetList, setShowWidgetList] = useState(false);
+    const [currentUser, setCurrentUser] = useState({});
     const [widgets, setWidgets] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
 
@@ -20,7 +47,7 @@ const Board = ({switchDay}) => {
         } else {
             history.push("/login");
         }
-        setWidgets([...Array(12)].map((e, i) => <Widget name={"Widget " + i} key={Math.random()}>♦</Widget>))
+        setWidgets(WIDGETS_ARRAY)
     }, [history]);
 
     const renderWidgets = () => {
@@ -32,7 +59,7 @@ const Board = ({switchDay}) => {
                 group="group"
                 animation={200}
             >
-                {widgets}
+                {widgets.map((widget) => <Widget name={"Widget " + widget.id} removeWidget={() => removeWidget(widget.id)} key={widget.id}>♦</Widget>)}
             </ReactSortable>
         )
     }
@@ -42,8 +69,26 @@ const Board = ({switchDay}) => {
         setShowMenu(!showMenu);
     }
 
+    const removeWidget = (widgetId) => {
+        setWidgets(widgets.filter(widget => widget.id !== widgetId))
+    }
+
+    const addWidget = () => {
+        setWidgets([...widgets, {
+            id: Math.random(),
+            type: null
+        }])
+        toggleShowWidgetList()
+    }
+
+    const toggleShowWidgetList = () => {
+        setShowWidgetList(!showWidgetList)
+    }
+
     return (
         <div className="bg">
+            <WidgetList isShow={showWidgetList} toggleShow={toggleShowWidgetList} addWidget={addWidget} />
+
             <header className="">
                 <div className="header-menu"/>
 
@@ -54,7 +99,7 @@ const Board = ({switchDay}) => {
                 </div>
 
                 <div onClick={openMenu} className="header-user">
-                    <p>Hello User 01</p>
+                    <p>Hello {currentUser.username}</p>
                     <div className="header-user-pfp"/>
                     <div className="menu-dropdown">
                         <a className="menu-list" onClick={AuthService.logout} href="/login"
@@ -65,6 +110,7 @@ const Board = ({switchDay}) => {
             </header>
             {/*<!-----Main------>*/}
             <main className="">
+                <button onClick={toggleShowWidgetList}>Add</button>
                 <div className="main-block">
                     {renderWidgets()}
                 </div>

@@ -55,8 +55,6 @@ const Auth = ({switchDay}) => {
 
     const onFormChange = (event) => {
 
-        isErrors()
-
         const name = event.target.name
         const value = event.target.value;
         setAuthInfo({...authInfo, [name]: value})

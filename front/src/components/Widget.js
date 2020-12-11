@@ -1,6 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 
-const Widget = ({name}) => {
+const Widget = ({name, removeWidget}) => {
+
+    const [menu, setMenu] = useState(false)
+
+    const toggleWidgetMenu = () => {
+        setMenu(!menu)
+    }
+
     return (
         <div className="container-block">
             <div className="container-bd"/>
@@ -11,9 +18,9 @@ const Widget = ({name}) => {
                         {name}
                     </h3>
                     <div className="container-line"/>
-                    <div className="container-more" onClick="open_widgetmenu(this)">
-                        <div className="widget-menu">
-                            <div className="widget-menu-opt" onClick="remove_widget(this)">Delete</div>
+                    <div className="container-more" onClick={toggleWidgetMenu}>
+                        <div className={`widget-menu ${menu ? "widget-menu-" : ""}`}>
+                            <div className="widget-menu-opt" onClick={removeWidget}>Delete</div>
                         </div>
                     </div>
                 </div>
