@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" version="1.1" width="512" height="512" x="0" y="0" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g>
+<g xmlns="http://www.w3.org/2000/svg">
+	<g>
+		<path d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717    L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859    c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287    l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285    L284.286,256.002z" fill="#ffffff" data-original="#000000" style="" class=""/>
+	</g>
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<g xmlns="http://www.w3.org/2000/svg">
+</g>
+<style>.ms-editor-squiggler{display:none !important}editor-card{display:none}.AsanaMain .TaskRow-taskName,.AsanaMain .TaskName-input{min-height:21px !important}.SpellingErrorV2{background-image:none !important;border-bottom:none !important}
+
+/*# sourceURL=global-content.scss */
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdsb2JhbC1jb250ZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0EscUJBQ0UsdUJBQXdCLENBQ3pCLFlBRUMsWUFBYSxDQUNkLHdEQWFDLDBCQUEyQixDQUM1QixpQkFJQyxnQ0FBaUMsQ0FDakMsNkJBQThCIiwiZmlsZSI6Imdsb2JhbC1jb250ZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBIRUQ6IERpc2FibGUgc3BlbGxjaGVjayBvbiBPdXRsb29rIFNhYVMgKi9cbi5tcy1lZGl0b3Itc3F1aWdnbGVyIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufVxuZWRpdG9yLWNhcmQge1xuICBkaXNwbGF5OiBub25lO1xufVxuXG4vKiBIRUQ6IEFzYW5hIHNpbmdsZSB0YXNrIGVkaXRvciB0b29sYmFyICovXG4vLyAuQ29tbWVudENvbXBvc2VyIC5Db21tZW50Q29tcG9zZXJFZGl0b3ItdG9vbGJhciB7XG4vLyAgIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbi8vIH1cbi8vIC5Db21tZW50Q29tcG9zZXIuQ29tbWVudENvbXBvc2VyLS1pc0NvbGxhcHNlZCAuQ29tbWVudENvbXBvc2VyRWRpdG9yLXRleHRFZGl0b3IgLlRleHRFZGl0b3IyLXByb3NlbWlycm9yRWRpdG9yIHtcbi8vICAgbWluLWhlaWdodDogOTZweCAhaW1wb3J0YW50O1xuLy8gfVxuLy8gLkNvbW1lbnRDb21wb3NlckVkaXRvci10ZXh0RWRpdG9yIC5UZXh0RWRpdG9yMi1wcm9zZW1pcnJvckVkaXRvciB7XG4vLyAgIG1pbi1oZWlnaHQ6IDMycHggIWltcG9ydGFudDtcbi8vIH1cbi5Bc2FuYU1haW4gLlRhc2tSb3ctdGFza05hbWUsIC5Bc2FuYU1haW4gLlRhc2tOYW1lLWlucHV0IHtcbiAgbWluLWhlaWdodDogMjFweCAhaW1wb3J0YW50O1xufVxuXG4vKiBIRUQgRGlzYWJsZSBoaWdobGlnaHQgb24gT2ZmaWNlIFdvcmQgKi9cbi5TcGVsbGluZ0Vycm9yVjIge1xuICBiYWNrZ3JvdW5kLWltYWdlOiBub25lICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1ib3R0b206IG5vbmUgIWltcG9ydGFudDtcbiAgLy8gcG9pbnRlci1ldmVudHM6IG5vbmU7XG59Il19 */</style></g></svg>

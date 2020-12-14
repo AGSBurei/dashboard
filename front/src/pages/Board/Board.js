@@ -3,7 +3,7 @@ import {ReactSortable} from "react-sortablejs";
 import {useHistory} from "react-router-dom";
 
 import AuthService from "../../services/auth.service";
-import Widget from "../../components/Widget";
+import Widget from "../../components/Widgets/Widget";
 import WidgetList from "../../components/WidgetList/WidgetList";
 
 const WIDGETS_ARRAY = [
@@ -47,7 +47,7 @@ const Board = ({switchDay}) => {
         } else {
             history.push("/login");
         }
-        setWidgets(WIDGETS_ARRAY)
+        setWidgets(WIDGETS_ARRAY) // TODO: user data
     }, [history]);
 
     const renderWidgets = () => {
@@ -59,7 +59,7 @@ const Board = ({switchDay}) => {
                 group="group"
                 animation={200}
             >
-                {widgets.map((widget) => <Widget name={"Widget " + widget.id} removeWidget={() => removeWidget(widget.id)} key={widget.id}>♦</Widget>)}
+                {widgets.map((widget) => <Widget widgetType={widget.type} removeWidget={() => removeWidget(widget.id)} key={widget.id}>♦</Widget>)}
             </ReactSortable>
         )
     }
@@ -73,12 +73,12 @@ const Board = ({switchDay}) => {
         setWidgets(widgets.filter(widget => widget.id !== widgetId))
     }
 
-    const addWidget = () => {
+    const addWidget = (type) => {
         setWidgets([...widgets, {
             id: Math.random(),
-            type: null
+            type
         }])
-        toggleShowWidgetList()
+        // toggleShowWidgetList() // Si l'on veux que le menu se ferme après avoir ajouté un widget
     }
 
     const toggleShowWidgetList = () => {
@@ -110,7 +110,7 @@ const Board = ({switchDay}) => {
             </header>
             {/*<!-----Main------>*/}
             <main className="">
-                <button onClick={toggleShowWidgetList}>Add</button>
+                <button className="add-widget" onClick={toggleShowWidgetList}>Add</button>
                 <div className="main-block">
                     {renderWidgets()}
                 </div>
