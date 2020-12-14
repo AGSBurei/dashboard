@@ -11,6 +11,7 @@ import com.dashboard.repository.RoleRepository;
 import com.dashboard.repository.UserRepository;
 import com.dashboard.security.jwt.JwtUtils;
 import com.dashboard.security.services.UserDetailsImpl;
+import com.dashboard.utils.EmailSenderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,7 +30,13 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+
+
 public class AuthController {
+
+    @Autowired
+    private EmailSenderImpl mailSender = new EmailSenderImpl();
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -111,6 +118,11 @@ public class AuthController {
 
         user.setRoles(roles);
         userRepository.save(user);
+
+        //Envoie mail de confirmation
+        System.out.println("Yo");
+        mailSender.sendSimpleMessage(user.getEmail(), "Validation de votre compte Dashboard Epitech", "Bonjour je suis homo");
+
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
