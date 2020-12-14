@@ -1,6 +1,7 @@
 package com.dashboard.payload.request;
 
 import javax.validation.constraints.*;
+import java.util.Date;
 import java.util.Set;
 
 public class SignupRequest {
@@ -18,6 +19,8 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
+
+
 
     public String getUsername() {
         return username;

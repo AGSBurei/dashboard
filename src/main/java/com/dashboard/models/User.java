@@ -7,10 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Document(collection = "users")
 public class User {
@@ -30,6 +27,10 @@ public class User {
     @Size(max = 255)
     private String password;
 
+    private String token;
+
+    private Date tokenExpiration;
+
     private boolean is_validated = false;
 
     @DBRef
@@ -42,10 +43,20 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, String token, Date tokenExpiration) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.token= token;
+        this.tokenExpiration = tokenExpiration;
+    }
+
+    public Date getTokenExpiration() {
+        return tokenExpiration;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public String getId() {

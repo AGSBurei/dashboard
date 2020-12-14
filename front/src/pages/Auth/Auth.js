@@ -49,35 +49,34 @@ const Auth = ({switchDay}) => {
             }
         }
 
-        setError("")
+        setError("");
         return false
     }
 
     const onFormChange = (event) => {
 
-        const name = event.target.name
+        const name = event.target.name;
         const value = event.target.value;
         setAuthInfo({...authInfo, [name]: value})
-    }
+    };
 
     const onSubmit = () => {
         if (inscription) {
-            console.log("inscription")
-            const isRegistered = register()
+            const isRegistered = register();
             if (isRegistered) {
-                setSuccess("User successfully registered")
+                setSuccess("User successfully registered");
+                //bru
                 setTimeout(function () {
-                    toggleInscription()
+                    toggleInscription();
                     setSuccess("User successfully registered")
                 }, 2000)
             }
 
         } else {
-            console.log("login")
             login()
         }
         console.log(authInfo)
-    }
+    };
 
     const toggleInscription = () => {
         if (inscription) {
