@@ -22,6 +22,14 @@ const Auth = ({switchDay}) => {
         "Create your account!"
     ])
 
+    useEffect(() => {
+        const user = AuthService.getCurrentUser();
+
+        if (user) {
+            history.push("/board");
+        }
+    }, ([history]))
+
     const login = () => {
         AuthService.login(authInfo.username, authInfo.password).then(data => {
             console.log("connection data:", data)

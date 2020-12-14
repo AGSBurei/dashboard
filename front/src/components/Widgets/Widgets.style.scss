@@ -1,0 +1,78 @@
+.pokemon-main .container-api {
+  overflow-y: visible;
+  img {
+    height: 88px;
+  }
+  h4 {
+    margin: 0;
+    font-size: 20px;
+    text-transform: capitalize;
+  }
+  .container {
+    display: flex;
+  }
+  p.types {
+    margin: 0;
+    span {
+      padding: 0 6px;
+      border-radius: 6px;
+      color: white;
+      margin: 0 2px;
+      &.normal {
+        background-color: gray;
+      }
+      &.grass {
+        background-color: forestgreen;
+      }
+      &.poison {
+        background-color: purple;
+      }
+      &.flying {
+        background-color: lightblue;
+      }
+      &.fire {
+        background-color: orangered;
+      }
+      &.ground {
+        background-color: brown;
+      }
+      &.electric {
+        background-color: yellow;
+        color: black;
+      }
+      &.water {
+        background-color: dodgerblue;
+      }
+      &.psychic {
+        background-color: mediumpurple;
+      }
+      &.fighting {
+        background-color: darkred;
+      }
+    }
+  }
+}
+
+.stackoverflow-search .container-api {
+  input {
+    height: 26px;
+    width: 100%;
+  }
+  a.stackoverflow-question {
+    width: 100%;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 2px 0 lightgray;
+    display: block;
+    margin: 6px 0;
+    color: black !important;
+    text-decoration: none;
+    transition: all .3s ease;
+
+    &:hover {
+      box-shadow: 0 0 6px 0 lightgray;
+
+    }
+  }
+}

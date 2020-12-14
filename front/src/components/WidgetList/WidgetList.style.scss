@@ -1,0 +1,61 @@
+.WidgetList {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  overflow: hidden;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, .6);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+
+  &.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  h2 {
+    color: white;
+    font-size: 4rem;
+    margin: 0 0 20px;
+    user-select: none;
+  }
+
+  button.exit {
+    position: absolute;
+    border: none;
+    top: 40px;
+    right: 40px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-color: transparent;
+    img {
+      width: 100%;
+    }
+  }
+  .available-widgets {
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    flex-wrap: wrap;
+
+    button {
+      width: 200px;
+      background-color: #fff;
+      border: none;
+      padding: 8px 20px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+}
+
+
