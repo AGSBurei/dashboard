@@ -5,6 +5,7 @@ import com.dashboard.models.Role;
 import com.dashboard.models.User;
 import com.dashboard.payload.request.LoginRequest;
 import com.dashboard.payload.request.SignupRequest;
+import com.dashboard.payload.response.ErrorResponse;
 import com.dashboard.payload.response.JwtResponse;
 import com.dashboard.payload.response.MessageResponse;
 import com.dashboard.repository.RoleRepository;
@@ -20,6 +21,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,6 +73,14 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
+        User user = userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + userDetails.getUsername()));
+
+        if (!user.isIs_validated()) {
+            return ResponseEntity
+                    .ok(new ErrorResponse("Your account is not activated", "activated"));
+        }
+
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
@@ -83,13 +93,13 @@ public class AuthController {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new ErrorResponse("Error: This username is already used", "username"));
         }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
+                    .body(new ErrorResponse("Error: Email is already in use!", "email"));
         }
 
 

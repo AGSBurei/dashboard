@@ -32,8 +32,18 @@ const Auth = ({switchDay}) => {
 
     const login = () => {
         AuthService.login(authInfo.username, authInfo.password).then(data => {
-            console.log("connection data:", data)
-            history.push("/board");
+            if (data.error) {
+                if (data.error === "activated"){
+                    setError(data.message);
+                }
+            } else {
+                setError("");
+                console.log("connection data:", data);
+                history.push("/board");
+            }
+        }).catch((err) => {
+            console.log(err);
+            setError('Incorrect connection information')
         })
     }
     const register = async () => {
@@ -163,7 +173,7 @@ const Auth = ({switchDay}) => {
                             </div>
 
                             {error !== "" && (<div className="error">
-                                error : {error}
+                                {error}
                             </div>)}
                             {success !== "" && (<div className="success">
                                 success : {success}

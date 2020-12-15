@@ -35,10 +35,7 @@ public class ApplicationController {
     public String verifier(HttpServletRequest request) {
 //      Stockage des info de l'URL dans une variable
         Map<String, String> values = getQueryMap(request.getQueryString());
-//      Récupération du user
-        System.out.println("User : " + values.get("user"));
-//      Récupération du token
-        System.out.println("Token : " + values.get("token"));
+
         User user = userRepository.findByUsername(values.get("user"))
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + values.get("user")));
 

@@ -14,16 +14,15 @@ const PokemonWidget = () => {
 
 
     useEffect(() => {
-        getPokemonInfo("ditto") // TODO: user default a mettre
+        getPokemonInfo("ditto");
         getPokemonList()
-    }, ([]))
+    }, ([]));
 
     const getPokemonInfo = (pokemonName) => {
-        console.log(pokemonName)
-        if (pokemonName.length === 0) return
+        if (pokemonName.length === 0) return;
         axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
             .then(res => {
-                console.log(res.data)
+                console.log(res.data);
                 const pokemonData = res.data;
                 if (pokemonData.sprites !== null) {
                     setPokemon({...pokemonData});
@@ -31,17 +30,17 @@ const PokemonWidget = () => {
             }).catch(error => {
             console.log("error:", error)
         })
-    }
+    };
 
     const getPokemonList = () => {
         axios.get("https://pokeapi.co/api/v2/pokemon?limit=151")
             .then(res => {
-                console.log(res.data.result)
+                console.log(res.data.result);
                 setPokemonList(res.data.results)
             }).catch(error => {
             console.log("error:", error)
         })
-    }
+    };
 
     return (
         <div>
