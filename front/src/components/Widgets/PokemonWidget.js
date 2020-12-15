@@ -14,7 +14,6 @@ const PokemonWidget = () => {
 
 
     useEffect(() => {
-        getPokemonInfo("ditto");
         getPokemonList()
     }, ([]));
 
@@ -35,8 +34,9 @@ const PokemonWidget = () => {
     const getPokemonList = () => {
         axios.get("https://pokeapi.co/api/v2/pokemon?limit=151")
             .then(res => {
-                console.log(res.data.result);
-                setPokemonList(res.data.results)
+                console.log(res.data.results);
+                setPokemonList(res.data.results);
+                getPokemonInfo(Math.floor(Math.random()*res.data.results.length));
             }).catch(error => {
             console.log("error:", error)
         })
