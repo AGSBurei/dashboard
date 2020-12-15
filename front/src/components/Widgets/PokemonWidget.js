@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios";
 
+import authHeader from "../../services/auth-header";
+
 const PokemonWidget = () => {
     const [pokemonList, setPokemonList] = useState([])
     const [pokemon, setPokemon] = useState({
@@ -21,7 +23,7 @@ const PokemonWidget = () => {
     const getPokemonInfo = (pokemonName) => {
         console.log(pokemonName)
         if (pokemonName.length === 0) return
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`, { headers: authHeader() })
             .then(res => {
                 console.log(res.data)
                 const pokemonData = res.data;
@@ -34,7 +36,7 @@ const PokemonWidget = () => {
     }
 
     const getPokemonList = () => {
-        axios.get("https://pokeapi.co/api/v2/pokemon?limit=151")
+        axios.get("https://pokeapi.co/api/v2/pokemon?limit=151", { headers: authHeader() })
             .then(res => {
                 console.log(res.data.result)
                 setPokemonList(res.data.results)

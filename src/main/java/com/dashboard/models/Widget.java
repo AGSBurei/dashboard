@@ -1,17 +1,29 @@
 package com.dashboard.models;
 
 import com.dashboard.models.services.Param;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
 
+@Document(collection = "widgets")
 public class Widget {
-    private String name;
-    private String description;
+
+    @Id
+    private String id;
+
+    private String name = "widgetName";
+    private String description = "widgetDescription";
     private Map<String, String> params = new HashMap<>();
 
-    public Widget() {
-        this.name = "widgetName";
-        this.description = "widgetDescription";
+    public Widget() {}
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
