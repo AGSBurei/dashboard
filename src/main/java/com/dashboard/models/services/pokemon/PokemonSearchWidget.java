@@ -4,19 +4,18 @@ import com.dashboard.models.Widget;
 import com.dashboard.models.services.Param;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public abstract class SocialMediaStatsWidget extends Widget {
-    public SocialMediaStatsWidget(String name, String description) {
+public class PokemonSearchWidget extends Widget {
+    public PokemonSearchWidget(String name, String description) {
         this.setName(name);
         this.setDescription(description);
 
-        List<Param<?>> paramList = new ArrayList<>();
-        Param<String> type = new Param<>("stats_type", "String");
-        Param<String> account = new Param<>("account", "String");
-
-        paramList.add(type);
-        paramList.add(account);
+        Map<String, String> paramList = new HashMap<>();
+        paramList.put("stats_type", "String");
+        paramList.put("account", "String");
 
         this.setParams(paramList);
     }

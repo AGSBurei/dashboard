@@ -2,13 +2,12 @@ package com.dashboard.models;
 
 import com.dashboard.models.services.Param;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Widget {
     private String name;
     private String description;
-    private List<Param<?>> params = new ArrayList<>();
+    private Map<String, String> params = new HashMap<>();
 
     public Widget() {
         this.name = "widgetName";
@@ -31,11 +30,15 @@ public class Widget {
         this.description = description;
     }
 
-    public List<Param<?>> getParams() {
+    public Map<String, String> getParams() {
         return params;
     }
 
-    public void setParams(List<Param<?>> params) {
+    public void setParams(Map<String, String> params) {
         this.params = params;
+    }
+
+    public void replaceParam(String key, String value) {
+        this.params.replace(key, value);
     }
 }

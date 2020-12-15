@@ -10,8 +10,8 @@ import com.dashboard.models.services.socialmediastats.YoutubeStatsWidget;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SocialMediaStatsService extends Service {
-    public SocialMediaStatsService() {
+public class PokemonService extends Service {
+    public PokemonService() {
         this.setName("social_media_stats");
         List<Widget> widgets = new ArrayList<>();
         TiktokStatsWidget tiktokStatsWidget = new TiktokStatsWidget();
