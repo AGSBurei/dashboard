@@ -1,23 +1,28 @@
 package com.dashboard.controller;
 
+import com.dashboard.models.User;
 import com.dashboard.payload.response.AboutResponse;
+import com.dashboard.payload.response.MessageResponse;
+import com.dashboard.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/")
 public class ApplicationController {
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/about")
     public ResponseEntity<?> allAccess(HttpServletRequest request) {
@@ -27,18 +32,29 @@ public class ApplicationController {
     }
 
     @GetMapping("/verify")
-    public void verifier(HttpServletRequest request) {
+    public String verifier(HttpServletRequest request) {
 //      Stockage des info de l'URL dans une variable
         Map<String, String> values = getQueryMap(request.getQueryString());
 //      Récupération du user
-        System.out.println("User : "+ values.get("user"));
+        System.out.println("User : " + values.get("user"));
 //      Récupération du token
-        System.out.println("Token : "+values.get("token"));
+        System.out.println("Token : " + values.get("token"));
+        User user = userRepository.findByUsername(values.get("user"))
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + values.get("user")));
 
+        Date now = new Date();
+
+        if (!user.isIs_validated() && user.getToken().equals(values.get("token")) && now.before(user.getTokenExpiration())) {
+            user.setIs_validated(true);
+            userRepository.save(user);
+            return "Congratulation, your account is now validated! This tab will close itself in 5 seconds.<script>setTimeout(()=>{window.close()}, 5000)</script>";
+        } else {
+            return "Error during validation";
+        }
 
     }
 
-//  fonction pour récupérer les info de la queryString
+    //  fonction pour récupérer les info de la queryString
     public static Map<String, String> getQueryMap(String query) {
         String[] params = query.split("&");
         Map<String, String> map = new HashMap<String, String>();
