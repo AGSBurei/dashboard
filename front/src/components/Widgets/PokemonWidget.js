@@ -3,17 +3,23 @@ import axios from "axios";
 
 import authHeader from "../../services/auth-header";
 
-const PokemonWidget = () => {
+const PokemonWidget = ({pokemonParam = null}) => {
     const [pokemonList, setPokemonList] = useState([])
     const [pokemon, setPokemon] = useState({
         id: 0,
         name: "",
         sprites: {
-            front_default: ""
+            front_default: "",
+            front_shiny: "",
         },
         types: []
     })
 
+    useEffect(() => {
+        if (pokemonList.length === 0 || pokemonParam !== null) return
+        const pokemonToShow = "pikachu"
+        getPokemonInfo(pokemonToShow)
+    }, [pokemonList])
 
     useEffect(() => {
         getPokemonInfo("ditto") // TODO: user default a mettre
@@ -21,11 +27,9 @@ const PokemonWidget = () => {
     }, ([]))
 
     const getPokemonInfo = (pokemonName) => {
-        console.log(pokemonName)
         if (pokemonName.length === 0) return
         axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`, { headers: authHeader() })
             .then(res => {
-                console.log(res.data)
                 const pokemonData = res.data;
                 if (pokemonData.sprites !== null) {
                     setPokemon({...pokemonData});
@@ -38,7 +42,6 @@ const PokemonWidget = () => {
     const getPokemonList = () => {
         axios.get("https://pokeapi.co/api/v2/pokemon?limit=151", { headers: authHeader() })
             .then(res => {
-                console.log(res.data.result)
                 setPokemonList(res.data.results)
             }).catch(error => {
             console.log("error:", error)
@@ -64,7 +67,7 @@ const PokemonWidget = () => {
             </div>
             <p className="types">
                 {pokemon.types.map(type => {
-                    return (<span className={type.type.name}>
+                    return (<span key={type.type.name} className={type.type.name}>
                         {type.type.name}
                     </span>)
                 })}

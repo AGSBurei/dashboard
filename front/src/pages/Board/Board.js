@@ -1,35 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {ReactSortable} from "react-sortablejs";
 import {useHistory} from "react-router-dom";
+import Axios from "axios";
 
 import AuthService from "../../services/auth.service";
 import Widget from "../../components/Widgets/Widget";
 import WidgetList from "../../components/WidgetList/WidgetList";
-
-const WIDGETS_ARRAY = [
-    {
-        id: 1,
-        type: "null"
-    },{
-        id: 2,
-        type: "null"
-    },{
-        id: 3,
-        type: "null"
-    },{
-        id: 4,
-        type: "null"
-    },{
-        id: 5,
-        type: "null"
-    },{
-        id: 6,
-        type: "null"
-    },{
-        id: 7,
-        type: "null"
-    },
-]
+import authHeader from "../../services/auth-header";
 
 const Board = ({switchDay}) => {
     const history = useHistory()
@@ -47,10 +24,20 @@ const Board = ({switchDay}) => {
         } else {
             history.push("/login");
         }
-        setWidgets(WIDGETS_ARRAY) // TODO: user data
+
+        getUserWidgets()
     }, [history]);
 
+    const getUserWidgets = () => {
+        Axios.get("http://localhost:8080/api/user/widgets", {headers: authHeader()})
+            .then(res => {
+                console.log("widgets user:", res.data)
+                setWidgets(res.data)
+            })
+    }
+
     const renderWidgets = () => {
+        if (widgets.length === 0 || widgets[widgets.length-1] === null) return
         return (
             <ReactSortable
                 className="main-container"
@@ -58,8 +45,10 @@ const Board = ({switchDay}) => {
                 setList={setWidgets}
                 group="group"
                 animation={200}
+                onEnd={saveWidgets}
             >
-                {widgets.map((widget) => <Widget widgetType={widget.type} removeWidget={() => removeWidget(widget.id)} key={widget.id}>♦</Widget>)}
+                {widgets.map((widget) => <Widget widget={widget} removeWidget={() => removeWidget(widget)}
+                                                 key={widget.id}>♦</Widget>)}
             </ReactSortable>
         )
     }
@@ -69,25 +58,36 @@ const Board = ({switchDay}) => {
         setShowMenu(!showMenu);
     }
 
-    const removeWidget = (widgetId) => {
-        setWidgets(widgets.filter(widget => widget.id !== widgetId))
+    const removeWidget = (widget) => {
+        Axios.post("http://localhost:8080/api/user/widgets/delete", widget, {headers: authHeader()})
+            .then(() => {
+                setWidgets(widgets.filter(widgetItem => widgetItem.id !== widget.id))
+            })
     }
 
-    const addWidget = (type) => {
-        setWidgets([...widgets, {
-            id: Math.random(),
-            type
-        }])
-        // toggleShowWidgetList() // Si l'on veux que le menu se ferme après avoir ajouté un widget
+    const addWidget = (name, params = {}) => {
+        Axios.post("http://localhost:8080/api/user/widgets/new", {
+                name,
+                params
+            },
+            {headers: authHeader()})
+            .then((res) => {
+                const newWidget = res.data
+                setWidgets([...widgets, newWidget])
+            })
     }
 
     const toggleShowWidgetList = () => {
         setShowWidgetList(!showWidgetList)
     }
 
+    const saveWidgets = () => {
+        Axios.post("http://localhost:8080/api/user/widgets", {widgets}, {headers: authHeader()})
+    }
+
     return (
         <div className="bg">
-            <WidgetList isShow={showWidgetList} toggleShow={toggleShowWidgetList} addWidget={addWidget} />
+            <WidgetList isShow={showWidgetList} toggleShow={toggleShowWidgetList} addWidget={addWidget}/>
 
             <header className="">
                 <div className="header-menu"/>
