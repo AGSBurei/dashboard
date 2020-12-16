@@ -3,6 +3,7 @@ import PokemonWidget from "./PokemonWidget";
 
 import "./Widgets.style.scss"
 import StackOverflowSearchWidget from "./StackOverflowSearchWidget";
+import TwitterWidget from "./TwitterWidget";
 
 const Widget = ({widgetType, removeWidget}) => {
 
@@ -30,6 +31,9 @@ const Widget = ({widgetType, removeWidget}) => {
         switch (widgetType) {
             case "pokemon-main": {
                 return <PokemonWidget />
+            }
+            case "twitter-profile": {
+                return <TwitterWidget />
             }
             case "stackoverflow-search": {
                 return <StackOverflowSearchWidget />
