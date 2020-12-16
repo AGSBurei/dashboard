@@ -1,27 +1,33 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios";
 
-const PokemonWidget = () => {
+import authHeader from "../../services/auth-header";
+
+const PokemonWidget = ({pokemonParam = null}) => {
     const [pokemonList, setPokemonList] = useState([])
     const [pokemon, setPokemon] = useState({
         id: 0,
         name: "",
         sprites: {
-            front_default: ""
+            front_default: "",
+            front_shiny: "",
         },
         types: []
     })
 
+    useEffect(() => {
+        if (pokemonList.length === 0 || pokemonParam !== null) return
+        getPokemonInfo(pokemonParam)
+    }, [pokemonList])
 
     useEffect(() => {
         getPokemonList()
     }, ([]));
 
     const getPokemonInfo = (pokemonName) => {
-        if (pokemonName.length === 0) return;
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+        if (pokemonName.length === 0) return
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`, { headers: authHeader() })
             .then(res => {
-                console.log(res.data);
                 const pokemonData = res.data;
                 if (pokemonData.sprites !== null) {
                     setPokemon({...pokemonData});
@@ -32,9 +38,8 @@ const PokemonWidget = () => {
     };
 
     const getPokemonList = () => {
-        axios.get("https://pokeapi.co/api/v2/pokemon?limit=151")
+        axios.get("https://pokeapi.co/api/v2/pokemon?limit=151", { headers: authHeader() })
             .then(res => {
-                console.log(res.data.results);
                 setPokemonList(res.data.results);
                 getPokemonInfo(Math.floor(Math.random()*res.data.results.length));
             }).catch(error => {
@@ -61,7 +66,7 @@ const PokemonWidget = () => {
             </div>
             <p className="types">
                 {pokemon.types.map(type => {
-                    return (<span className={type.type.name}>
+                    return (<span key={type.type.name} className={type.type.name}>
                         {type.type.name}
                     </span>)
                 })}

@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
 import axios from "axios";
+import authHeader from "../../services/auth-header";
 
 const StackOverflowSearchWidget = () => {
 
@@ -9,7 +10,7 @@ const StackOverflowSearchWidget = () => {
         console.log(evt)
         if (evt.code !== "Enter") return
 
-        axios.get(`https://api.stackexchange.com/2.2/search?pagesize=10&order=desc&sort=votes&intitle=${evt.target.value}&site=stackoverflow`)
+        axios.get(`https://api.stackexchange.com/2.2/search?pagesize=10&order=desc&sort=votes&intitle=${evt.target.value}&site=stackoverflow`, { headers: authHeader() })
             .then(res => {
                 console.log(res.data.items)
                 setQuestions(res.data.items);

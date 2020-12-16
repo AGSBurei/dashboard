@@ -4,7 +4,7 @@ import PokemonWidget from "./PokemonWidget";
 import "./Widgets.style.scss"
 import StackOverflowSearchWidget from "./StackOverflowSearchWidget";
 
-const Widget = ({widgetType, removeWidget}) => {
+const Widget = ({widget, removeWidget}) => {
 
     const [menu, setMenu] = useState(false)
 
@@ -13,7 +13,7 @@ const Widget = ({widgetType, removeWidget}) => {
     }
 
     const getWidgetName = () => {
-        switch (widgetType) {
+        switch (widget.name) {
             case "pokemon-main": {
                 return "Pokemon"
             }
@@ -27,7 +27,7 @@ const Widget = ({widgetType, removeWidget}) => {
     }
 
     const renderWidgetContent = () => {
-        switch (widgetType) {
+        switch (widget.name) {
             case "pokemon-main": {
                 return <PokemonWidget />
             }
@@ -41,7 +41,7 @@ const Widget = ({widgetType, removeWidget}) => {
     }
 
     return (
-        <div className={`container-block ${widgetType}`}>
+        <div className={`container-block ${widget.name}`}>
             <div className="container-bd"/>
             <div className="container-bg">
                 <div className="container-header">

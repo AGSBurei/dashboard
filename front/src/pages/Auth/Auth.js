@@ -28,7 +28,7 @@ const Auth = ({switchDay}) => {
         if (user) {
             history.push("/board");
         }
-    }, ([history]))
+    }, [history])
 
     const login = () => {
         AuthService.login(authInfo.username, authInfo.password).then(data => {
@@ -72,8 +72,7 @@ const Auth = ({switchDay}) => {
     }
 
     const onFormChange = (event) => {
-
-        const name = event.target.name;
+        const name = event.target.name
         const value = event.target.value;
         setAuthInfo({...authInfo, [name]: value})
     };

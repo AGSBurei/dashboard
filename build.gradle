@@ -25,7 +25,6 @@ ext {
     set('springBootAdminVersion', "2.3.1")
 }
 
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -46,8 +45,8 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.springframework.boot:spring-boot-starter-validation:2.4.0'
     compileOnly 'org.projectlombok:lombok'
+    compile("org.springframework.boot:spring-boot-starter-mail")
 
-//    Pas sûr que la prochaine ligne fonctionne
     compile("org.springframework.boot:spring-boot-starter-mail")
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -59,7 +58,8 @@ dependencies {
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.springframework.security:spring-security-test'
-
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.4'
 }
 
 dependencyManagement {

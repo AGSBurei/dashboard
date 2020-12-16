@@ -1,18 +1,29 @@
 package com.dashboard.models;
 
 import com.dashboard.models.services.Param;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+@Document(collection = "widgets")
 public class Widget {
-    private String name;
-    private String description;
-    private List<Param<?>> params = new ArrayList<>();
 
-    public Widget() {
-        this.name = "widgetName";
-        this.description = "widgetDescription";
+    @Id
+    private String id;
+
+    private String name = "widgetName";
+    private String description = "widgetDescription";
+    private Map<String, String> params = new HashMap<>();
+
+    public Widget() {}
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,11 +42,15 @@ public class Widget {
         this.description = description;
     }
 
-    public List<Param<?>> getParams() {
+    public Map<String, String> getParams() {
         return params;
     }
 
-    public void setParams(List<Param<?>> params) {
+    public void setParams(Map<String, String> params) {
         this.params = params;
+    }
+
+    public void replaceParam(String key, String value) {
+        this.params.replace(key, value);
     }
 }
