@@ -4,6 +4,7 @@ import com.dashboard.models.User;
 import com.dashboard.payload.response.AboutResponse;
 import com.dashboard.payload.response.MessageResponse;
 import com.dashboard.repository.UserRepository;
+import com.dashboard.utils.GetQueryStrings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -34,7 +34,7 @@ public class ApplicationController {
     @GetMapping("/verify")
     public String verifier(HttpServletRequest request) {
 //      Stockage des info de l'URL dans une variable
-        Map<String, String> values = getQueryMap(request.getQueryString());
+        Map<String, String> values = GetQueryStrings.getQueryMap(request.getQueryString());
 
         User user = userRepository.findByUsername(values.get("user"))
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + values.get("user")));
@@ -52,19 +52,6 @@ public class ApplicationController {
     }
 
     //  fonction pour récupérer les info de la queryString
-    public static Map<String, String> getQueryMap(String query) {
-        String[] params = query.split("&");
-        Map<String, String> map = new HashMap<String, String>();
-        for (String param : params) {
-            String[] p = param.split("=");
-            String name = p[0];
-            if (p.length > 1) {
-                String value = p[1];
-                map.put(name, value);
-            }
-        }
-        return map;
 
-    }
 
 }
