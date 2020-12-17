@@ -73,13 +73,13 @@
   }
 }
 
-.stackoverflow-search .container-api, .twitter-profile .container-api {
+.stackoverflow-search .container-api, .twitter-profile .container-api, .news-widget .container-api{
   input {
     height: 26px;
     width: 100%;
   }
 
-  a.stackoverflow-question, .twitter-result {
+  a.stackoverflow-question, .twitter-result, a.news-details {
     width: 100%;
     padding: 2px 6px;
     border-radius: 4px;
@@ -97,9 +97,13 @@
     }
   }
 }
-
+a.news-details {
+  span.author {
+          opacity: 0.7;
+  }
+}
 /* Twitter widget */
-.twitter-profile .container-api a.twitter-result {
+.twitter-profile .container-api a.twitter-result  {
   display: flex;
   align-items: center;
   padding: 10px;

@@ -23,6 +23,9 @@ const WidgetList = ({isShow, toggleShow, addWidget}) => {
                 <button onClick={() => addWidget("twitter-profile")}>
                     Twitter widget
                 </button>
+                <button onClick={() => addWidget("news-widget")}>
+                    News widget
+                </button>
             </div>
         </div>
     )

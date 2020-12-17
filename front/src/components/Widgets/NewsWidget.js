@@ -5,29 +5,28 @@ import param from "../../param";
 
 const StackOverflowSearchWidget = ({widget = {}, saveParams}) => {
 
-    const [questions, setQuestions] = useState([])
-    const [search, setSearch] = useState("")
+    const [newsList, setNewsList] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         if (widget.params !== undefined && widget.params.search !== undefined) {
-            setSearch(widget.params.search)
+            setSearch(widget.params.search);
             if (widget.params.search) {
                 submitSearch(widget.params.search)
             }
         }
-    },[])
+    }, []);
 
     const onChange = (evt) => {
-        setSearch(evt.target.value)
-        if (evt.code !== "Enter") return
-
+        setSearch(evt.target.value);
+        if (evt.code !== "Enter") return;
         submitSearch(evt.target.value)
-    }
+    };
 
     const submitSearch = (searchValue) => {
-        axios.get(param.stackoverflow + "?search=" + searchValue, { headers: authHeader() })
+        axios.get(param.news + "?query=" + searchValue, {headers: authHeader()})
             .then(res => {
-                setQuestions(res.data.items);
+                setNewsList(res.data.articles);
                 saveParams({
                     ...widget,
                     params: {
@@ -37,20 +36,20 @@ const StackOverflowSearchWidget = ({widget = {}, saveParams}) => {
             }).catch(error => {
             console.log("error:", error)
         })
-    }
+    };
 
-    const renderQuestion = (question) => {
+    const renderNews = (news) => {
         return (
-            <a className="stackoverflow-question"
-               href={question.link}
-               key={question.link}
+            <a className="news-details"
+               href={news.url}
+               key={news.url}
                target="_blank"
                rel="noreferrer"
             >
-                {question.score} - {question.title}
+                <span>{news.title} - <span className={"author"}>{news.author}</span></span>
             </a>
         )
-    }
+    };
 
     return (
         <div>
@@ -59,14 +58,14 @@ const StackOverflowSearchWidget = ({widget = {}, saveParams}) => {
                 value={search}
                 onChange={(evt) => onChange(evt)}
                 type="text"
-                placeholder="Une question ?"
+                placeholder="What do you want to search (press enter to validate) ?"
             />
 
-            <div className="stackoverflow-questions">
-                {questions.map(question => renderQuestion(question))}
+            <div className="news-result">
+                {newsList.map(news => renderNews(news))}
             </div>
         </div>
     )
-}
+};
 
 export default StackOverflowSearchWidget;

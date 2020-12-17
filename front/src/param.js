@@ -2,12 +2,15 @@ import React from "react";
 import PokemonWidget from "./components/Widgets/PokemonWidget";
 import TwitterWidget from "./components/Widgets/TwitterWidget";
 import StackOverflowSearchWidget from "./components/Widgets/StackOverflowSearchWidget";
+import NewsWidget from "./components/Widgets/NewsWidget"
 const host = "http://localhost:8080/";
 
 export default {
     host: host,
     auth: host + "api/auth/",
     twitter: host + "api/widget/twitter_search",
+    stackoverflow: host + "api/widget/stackoverflow/search",
+    news: host + "api/widget/news_search",
     widget:{
         save: host + "api/user/widget",
         delete: host + "api/user/widgets/delete",
@@ -35,6 +38,12 @@ export default {
             display_name: "StackOverflow Search",
             size: 50,
             component: (widget, saveParams) => <StackOverflowSearchWidget widget={widget} saveParams={saveParams}/>,
+        },
+        {
+            name: "news-widget",
+            display_name: "Breaking news",
+            size: 50,
+            component: (widget, saveParams) => <NewsWidget widget={widget} saveParams={saveParams}/>,
         },
     ]
 
