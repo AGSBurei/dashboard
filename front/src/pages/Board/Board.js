@@ -31,7 +31,6 @@ const Board = ({switchDay}) => {
     const getUserWidgets = () => {
         Axios.get("http://localhost:8080/api/user/widgets", {headers: authHeader()})
             .then(res => {
-                console.log("widgets user:", res.data)
                 setWidgets(res.data)
             })
     }

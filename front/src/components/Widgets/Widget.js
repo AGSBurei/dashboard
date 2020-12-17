@@ -3,6 +3,8 @@ import PokemonWidget from "./PokemonWidget";
 
 import "./Widgets.style.scss"
 import StackOverflowSearchWidget from "./StackOverflowSearchWidget";
+import Axios from "axios";
+import authHeader from "../../services/auth-header";
 
 const Widget = ({widget, removeWidget}) => {
 
@@ -29,15 +31,22 @@ const Widget = ({widget, removeWidget}) => {
     const renderWidgetContent = () => {
         switch (widget.name) {
             case "pokemon-main": {
-                return <PokemonWidget />
+                return <PokemonWidget widget={widget} saveParams={saveWidgetParams}/>
             }
             case "stackoverflow-search": {
-                return <StackOverflowSearchWidget />
+                return <StackOverflowSearchWidget widget={widget} saveParams={saveWidgetParams}/>
             }
             default: {
                 return <div>default</div>
             }
         }
+    }
+
+    const saveWidgetParams = (widget) => {
+        Axios.post("http://localhost:8080/api/user/widget",
+            widget,
+            {headers: authHeader()}
+        )
     }
 
     return (

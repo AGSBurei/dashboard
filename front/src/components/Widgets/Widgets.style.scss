@@ -49,6 +49,10 @@
       &.fighting {
         background-color: darkred;
       }
+      &.bug {
+        background-color: greenyellow;
+        color: black;
+      }
     }
   }
 }

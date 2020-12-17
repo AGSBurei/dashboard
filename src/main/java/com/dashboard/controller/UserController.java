@@ -72,7 +72,6 @@ public class UserController {
         return null;
     }
 
-    // TODO: User ajoute widget, l'ajoute en back egalement
     @PostMapping("/widgets/new")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> newWidget(@Valid @RequestBody NewWidgetRequest newWidgetRequest) throws JsonProcessingException {
@@ -97,7 +96,6 @@ public class UserController {
     }
 
 
-    // TODO: User delete widget, le delete en back egalement
     @PostMapping("/widgets/delete")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> deleteWidget(@Valid @RequestBody Widget widget) throws Exception {
@@ -117,6 +115,20 @@ public class UserController {
 
             widgetRepository.delete(widgetToDelete);
             userRepository.save(user);
+
+            return ResponseEntity.ok("ok");
+        }
+        return null;
+    }
+
+    @PostMapping("/widget")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> saveWidget(@Valid @RequestBody Widget widget) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            Widget widgetToSave = widgetRepository.findById(widget.getId()).orElseThrow(() -> new Exception("Widget not found"));
+            widgetToSave.setParams(widget.getParams());
+            widgetRepository.save(widgetToSave);
 
             return ResponseEntity.ok("ok");
         }
