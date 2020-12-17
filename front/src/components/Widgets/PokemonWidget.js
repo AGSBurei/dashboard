@@ -17,7 +17,7 @@ const PokemonWidget = ({widget = {}, saveParams}) => {
 
     useEffect(() => {
         getPokemonList()
-    });
+    }, []);
 
     const getPokemonInfo = (pokemonName) => {
         if (pokemonName.length === 0) return
@@ -48,7 +48,7 @@ const PokemonWidget = ({widget = {}, saveParams}) => {
             widget.params !== null &&
             widget.params.pokemon !== null &&
             widget.params.pokemon !== undefined) {
-                getPokemonInfo(widget.params.pokemon)
+            getPokemonInfo(widget.params.pokemon)
         } else {
             // Random pokemon
             const index = Math.floor(Math.random() * pokemons.length)

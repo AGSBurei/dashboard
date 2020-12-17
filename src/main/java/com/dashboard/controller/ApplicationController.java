@@ -64,7 +64,5 @@ public class ApplicationController {
             }
         }
         return map;
-
     }
-
 }

@@ -14,11 +14,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -34,36 +34,48 @@ public class WidgetApiController {
 
     @GetMapping("/pokemon")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<String> pokemon() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication != null){
-            System.out.println(authentication.getName());
-            User user = userRepository.findByUsername(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + authentication.getName()));
-            // modifier les paramètres du widget de l'utilisateur
-            // Il faut obtenir l'ID du widget
-
-            PokemonSearchWidget pokemonSearchWidget = new PokemonSearchWidget("pokemon","description");
-            pokemonSearchWidget.replaceParam("pokemon", "ditto");
-//            widgetRepository.save(pokemonSearchWidget);
-//            user.addWidget(pokemonSearchWidget);
-//            userRepository.save(user);
-            System.out.println(user.getWidgets().get(0).getName());
-
-        }
+    public ResponseEntity<String> pokemonList() {
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest
                     .get("https://pokeapi.co/api/v2/pokemon/ditto")
                     .header("accept", "application/json")
                     .asJson();
-
-            // Ici enlever les données qui nous interresse pas si jamais il y a besoin
             return ResponseEntity.ok(jsonResponse.getBody().toString());
         } catch (UnirestException e) {
-            System.out.println("unirest exception:" + e);
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/pokemon")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> pokemon(@RequestParam String pokemon) {
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("https://pokeapi.co/api/v2/pokemon/" + pokemon)
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
         }
         return null;
     }
 
 
-    // Problème:  remplir une classe avec les infos + add widget + remove widget
+    @GetMapping("/stackoverflow/search")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> stackOverflowSearch(@RequestParam String search) throws UnsupportedEncodingException {
+
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("https://api.stackexchange.com/2.2/search?pagesize=10&order=desc&sort=votes&intitle="+ URLEncoder.encode(search, "UTF-8") +"&site=stackoverflow")
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
 }
