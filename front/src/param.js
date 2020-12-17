@@ -3,6 +3,8 @@ import PokemonWidget from "./components/Widgets/PokemonWidget";
 import TwitterWidget from "./components/Widgets/TwitterWidget";
 import StackOverflowSearchWidget from "./components/Widgets/StackOverflowSearchWidget";
 import NewsWidget from "./components/Widgets/NewsWidget"
+import FootballLiveScoreWidget from "./components/Widgets/FootballLiveScoreWidget";
+
 const host = "http://localhost:8080/";
 
 export default {
@@ -11,12 +13,13 @@ export default {
     twitter: host + "api/widget/twitter_search",
     stackoverflow: host + "api/widget/stackoverflow/search",
     news: host + "api/widget/news_search",
-    widget:{
+    footballLiveScore: host + "api/widget/football/live-score",
+    widget: {
         save: host + "api/user/widget",
         delete: host + "api/user/widgets/delete",
         new: host + "api/user/widgets/new",
         saveAccount: host + "api/user/widgets",
-},
+    },
 
 
     //Liste des widgets disponibles
@@ -40,10 +43,16 @@ export default {
             component: (widget, saveParams) => <StackOverflowSearchWidget widget={widget} saveParams={saveParams}/>,
         },
         {
+
             name: "news-widget",
             display_name: "Breaking news",
             size: 50,
             component: (widget, saveParams) => <NewsWidget widget={widget} saveParams={saveParams}/>,
+        },{
+            name: "football-live-score",
+            display_name: "Football Live Score",
+            size: 100,
+            component: (widget, saveParams) => <FootballLiveScoreWidget/>,
         },
     ]
 

@@ -139,4 +139,19 @@ public class WidgetApiController {
         return null;
     }
 
+
+    @GetMapping("/football/live-score")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> footballLiveScore() {
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("http://livescore-api.com/api-client/scores/live.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe")
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
 }
