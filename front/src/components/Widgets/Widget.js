@@ -5,6 +5,7 @@ import "./Widgets.style.scss"
 import StackOverflowSearchWidget from "./StackOverflowSearchWidget";
 import Axios from "axios";
 import authHeader from "../../services/auth-header";
+import TwitterWidget from "./TwitterWidget";
 
 const Widget = ({widget, removeWidget}) => {
 
@@ -14,19 +15,6 @@ const Widget = ({widget, removeWidget}) => {
         setMenu(!menu)
     }
 
-    const getWidgetName = () => {
-        switch (widget.name) {
-            case "pokemon-main": {
-                return "Pokemon"
-            }
-            case "stackoverflow-search": {
-                return "StackOverflow Search"
-            }
-            default: {
-                return <div>default</div>
-            }
-        }
-    }
 
     const renderWidgetContent = () => {
         switch (widget.name) {
@@ -50,13 +38,13 @@ const Widget = ({widget, removeWidget}) => {
     }
 
     return (
-        <div className={`container-block ${widget.name}`}>
+        <div  className={`container-block ${widget.name} ${3}`}>
             <div className="container-bd"/>
             <div className="container-bg">
                 <div className="container-header">
                     <div className="container-logo t"/>
                     <h3>
-                        {getWidgetName()}
+                        {3}
                     </h3>
                     <div className="container-line"/>
                     <div className="container-more" onClick={toggleWidgetMenu}>

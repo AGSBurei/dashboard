@@ -21,7 +21,7 @@ const PokemonWidget = ({widget = {}, saveParams}) => {
 
     const getPokemonInfo = (pokemonName) => {
         if (pokemonName.length === 0) return
-        Axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`, {headers: authHeader()})
+        Axios.get(`http://localhost:8080/api/widget/pokemon?pokemon=${pokemonName}`, {headers: authHeader()})
             .then(res => {
                 const pokemonData = res.data;
                 if (pokemonData.sprites !== null) {
@@ -34,7 +34,7 @@ const PokemonWidget = ({widget = {}, saveParams}) => {
     };
 
     const getPokemonList = () => {
-        Axios.get("https://pokeapi.co/api/v2/pokemon?limit=151", {headers: authHeader()})
+        Axios.get("http://localhost:8080/api/widget/pokemon/list", {headers: authHeader()})
             .then(res => {
                 setPokemonList(res.data.results);
                 getInitialPokemonInfo(res.data.results)
