@@ -13,39 +13,19 @@ const Widget = ({widgetType, removeWidget}) => {
         setMenu(!menu)
     }
 
+
+
     const getWidgetName = () => {
-        switch (widgetType) {
-            case "pokemon-main": {
-                return "Pokemon"
-            }
-            case "stackoverflow-search": {
-                return "StackOverflow Search"
-            }
-            default: {
-                return <div>default</div>
-            }
-        }
+
     }
 
     const renderWidgetContent = () => {
-        switch (widgetType) {
-            case "pokemon-main": {
-                return <PokemonWidget />
-            }
-            case "twitter-profile": {
-                return <TwitterWidget />
-            }
-            case "stackoverflow-search": {
-                return <StackOverflowSearchWidget />
-            }
-            default: {
-                return <div>default</div>
-            }
-        }
+
     }
 
+
     return (
-        <div className={`container-block ${widgetType}`}>
+        <div  className={`container-block ${widgetType} ${size}`}>
             <div className="container-bd"/>
             <div className="container-bg">
                 <div className="container-header">

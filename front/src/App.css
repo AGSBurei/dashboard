@@ -52,6 +52,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari/Edge */
 #mdp {
     -webkit-text-security: disc;
 }
+
 #mdp:focus {
     -webkit-text-stroke-width: 1.5px;
 }
@@ -944,3 +945,22 @@ input:-webkit-autofill:active {
     margin-left: 20px;
     cursor: pointer;
 }
+
+/* Changement de size widget */
+
+.widget-25 {
+    width: calc(50% - 20px);
+}
+.widget-50 {
+    width: calc(50% - 20px);
+}
+
+.widget-75 {
+    width: calc(75% - 20px);
+}
+
+.widget-100 {
+    width: calc(100% - 20px);
+}
+
+/* Twitter widget */
