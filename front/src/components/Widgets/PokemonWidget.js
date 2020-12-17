@@ -1,30 +1,32 @@
 import React, {useEffect, useState} from "react"
-import axios from "axios";
+import Axios from "axios";
 
-const PokemonWidget = () => {
+import authHeader from "../../services/auth-header";
+
+const PokemonWidget = ({widget = {}, saveParams}) => {
     const [pokemonList, setPokemonList] = useState([])
     const [pokemon, setPokemon] = useState({
         id: 0,
         name: "",
         sprites: {
-            front_default: ""
+            front_default: "",
+            front_shiny: "",
         },
         types: []
     })
 
-
     useEffect(() => {
         getPokemonList()
-    }, ([]));
+    }, []);
 
     const getPokemonInfo = (pokemonName) => {
-        if (pokemonName.length === 0) return;
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+        if (pokemonName.length === 0) return
+        Axios.get(`http://localhost:8080/api/widget/pokemon?pokemon=${pokemonName}`, {headers: authHeader()})
             .then(res => {
-                console.log(res.data);
                 const pokemonData = res.data;
                 if (pokemonData.sprites !== null) {
                     setPokemon({...pokemonData});
+                    savePokemonParam(pokemonName)
                 }
             }).catch(error => {
             console.log("error:", error)
@@ -32,15 +34,37 @@ const PokemonWidget = () => {
     };
 
     const getPokemonList = () => {
-        axios.get("https://pokeapi.co/api/v2/pokemon?limit=151")
+        Axios.get("http://localhost:8080/api/widget/pokemon/list", {headers: authHeader()})
             .then(res => {
-                console.log(res.data.results);
                 setPokemonList(res.data.results);
-                getPokemonInfo(Math.floor(Math.random()*res.data.results.length));
+                getInitialPokemonInfo(res.data.results)
             }).catch(error => {
-            console.log("error:", error)
+            console.log("error pokemonList:", error)
         })
     };
+
+    const getInitialPokemonInfo = (pokemons) => {
+        if (widget.params !== undefined &&
+            widget.params !== null &&
+            widget.params.pokemon !== null &&
+            widget.params.pokemon !== undefined) {
+            getPokemonInfo(widget.params.pokemon)
+        } else {
+            // Random pokemon
+            const index = Math.floor(Math.random() * pokemons.length)
+            const pokemonName = pokemons[index].name
+            getPokemonInfo(pokemonName);
+        }
+    }
+
+    const savePokemonParam = (pokemonName) => {
+        saveParams({
+            ...widget,
+            params: {
+                pokemon: pokemonName
+            }
+        })
+    }
 
     return (
         <div>
@@ -49,7 +73,7 @@ const PokemonWidget = () => {
             <datalist id="pokemonList">
                 {pokemonList.map(pokemon => {
                     return (
-                        <option value={pokemon.name}/>
+                        <option key={pokemon.name} value={pokemon.name}/>
                     )
                 })}
             </datalist>
@@ -61,7 +85,7 @@ const PokemonWidget = () => {
             </div>
             <p className="types">
                 {pokemon.types.map(type => {
-                    return (<span className={type.type.name}>
+                    return (<span key={type.type.name} className={type.type.name}>
                         {type.type.name}
                     </span>)
                 })}

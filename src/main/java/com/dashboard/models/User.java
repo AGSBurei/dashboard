@@ -106,6 +106,12 @@ public class User {
     public void setWidgets(List<Widget> widgets) {
         this.widgets = widgets;
     }
+    public void addWidget(Widget widget) {
+        this.widgets.add(widget);
+    }
+    public void removeWidgets(Widget widget) {
+        this.widgets.remove(widget);
+    }
 
     public boolean isIs_validated() {
         return is_validated;

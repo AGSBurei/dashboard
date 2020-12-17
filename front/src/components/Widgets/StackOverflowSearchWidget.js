@@ -1,18 +1,38 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios";
+import authHeader from "../../services/auth-header";
 
-const StackOverflowSearchWidget = () => {
+const StackOverflowSearchWidget = ({widget = {}, saveParams}) => {
 
     const [questions, setQuestions] = useState([])
+    const [search, setSearch] = useState("")
 
-    const submitSearch = (evt) => {
-        console.log(evt)
+    useEffect(() => {
+        if (widget.params !== undefined && widget.params.search !== undefined) {
+            setSearch(widget.params.search)
+            if (widget.params.search) {
+                submitSearch(widget.params.search)
+            }
+        }
+    },[])
+
+    const onChange = (evt) => {
+        setSearch(evt.target.value)
         if (evt.code !== "Enter") return
 
-        axios.get(`https://api.stackexchange.com/2.2/search?pagesize=10&order=desc&sort=votes&intitle=${evt.target.value}&site=stackoverflow`)
+        submitSearch(evt.target.value)
+    }
+
+    const submitSearch = (searchValue) => {
+        axios.get("http://localhost:8080/api/widget/stackoverflow/search?search=" + searchValue, { headers: authHeader() })
             .then(res => {
-                console.log(res.data.items)
                 setQuestions(res.data.items);
+                saveParams({
+                    ...widget,
+                    params: {
+                        search: searchValue
+                    }
+                })
             }).catch(error => {
             console.log("error:", error)
         })
@@ -22,7 +42,7 @@ const StackOverflowSearchWidget = () => {
         return (
             <a className="stackoverflow-question"
                href={question.link}
-               key={Math.random()}
+               key={question.link}
                target="_blank"
                rel="noreferrer"
             >
@@ -31,11 +51,12 @@ const StackOverflowSearchWidget = () => {
         )
     }
 
-
     return (
         <div>
             <input
-                onKeyPress={(evt) => submitSearch(evt)}
+                onKeyUp={(evt) => onChange(evt)}
+                value={search}
+                onChange={(evt) => onChange(evt)}
                 type="text"
                 placeholder="Une question ?"
             />

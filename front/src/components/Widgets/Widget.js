@@ -1,53 +1,49 @@
-import React, {useState} from "react";
-import PokemonWidget from "./PokemonWidget";
+import React, {useState, useEffect} from "react";
 
 import "./Widgets.style.scss"
-import StackOverflowSearchWidget from "./StackOverflowSearchWidget";
+import Axios from "axios";
+import authHeader from "../../services/auth-header";
+import param from "../../param";
 
-const Widget = ({widgetType, removeWidget}) => {
+const Widget = ({widget, removeWidget}) => {
 
-    const [menu, setMenu] = useState(false)
+    const [menu, setMenu] = useState(false);
+    const [widgetInfo, setWidgetInfo] = useState({});
 
     const toggleWidgetMenu = () => {
         setMenu(!menu)
-    }
+    };
 
-    const getWidgetName = () => {
-        switch (widgetType) {
-            case "pokemon-main": {
-                return "Pokemon"
+    useEffect(() => {
+        param.widgets.forEach((widgetSave) => {
+            if (widgetSave.name === widget.name) {
+                setWidgetInfo(widgetSave)
             }
-            case "stackoverflow-search": {
-                return "StackOverflow Search"
-            }
-            default: {
-                return <div>default</div>
-            }
-        }
-    }
+        })
+
+    }, []);
 
     const renderWidgetContent = () => {
-        switch (widgetType) {
-            case "pokemon-main": {
-                return <PokemonWidget />
-            }
-            case "stackoverflow-search": {
-                return <StackOverflowSearchWidget />
-            }
-            default: {
-                return <div>default</div>
-            }
+        if (widgetInfo.component) {
+            return widgetInfo.component(widget, saveWidgetParams)
         }
-    }
+    };
+
+    const saveWidgetParams = (widget) => {
+        Axios.post(param.widget.save,
+            widget,
+            {headers: authHeader()}
+        )
+    };
 
     return (
-        <div className={`container-block ${widgetType}`}>
+        <div className={`container-block ${widget.name} widget-${widgetInfo.size}`}>
             <div className="container-bd"/>
             <div className="container-bg">
                 <div className="container-header">
                     <div className="container-logo t"/>
                     <h3>
-                        {getWidgetName()}
+                        {widgetInfo.display_name}
                     </h3>
                     <div className="container-line"/>
                     <div className="container-more" onClick={toggleWidgetMenu}>
@@ -57,7 +53,9 @@ const Widget = ({widgetType, removeWidget}) => {
                     </div>
                 </div>
                 <div className="container-api">
-                    {renderWidgetContent()}
+                    {
+                        renderWidgetContent()
+                    }
                 </div>
             </div>
         </div>
