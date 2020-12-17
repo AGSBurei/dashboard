@@ -112,4 +112,13 @@
       border-radius: 50%;
     }
   }
+
+  .certified {
+    width: 24px;
+    margin-left: 5px;
+
+    path {
+      fill: rgba(29, 161, 242, 1.00);
+    }
+  }
 }
