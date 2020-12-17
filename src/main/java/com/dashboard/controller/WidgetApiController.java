@@ -43,11 +43,31 @@ public class WidgetApiController {
     @Autowired
     WidgetRepository widgetRepository;
 
+    @GetMapping("/news_search")
+    public ResponseEntity<String> search(HttpServletRequest request) {
+        Map<String, String> values = GetQueryStrings.getQueryMap(request.getQueryString());
+
+//      Pas sécurisé
+        String apikey = "a548a1016a9c4fd6aa6979a0cfd8183c";
+
+        try {
+            HttpResponse<String> response = Unirest.get("http://newsapi.org/v2/everything?q="+values.get("query")+"&sortBy=popularity")
+                    .header("Authorization", "Bearer " + apikey)
+                    .asString();
+
+            return ResponseEntity.ok(response.getBody());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
 
     @GetMapping("/twitter_search")
     public ResponseEntity<String> twitterSearch(HttpServletRequest request) {
         Map<String, String> values = GetQueryStrings.getQueryMap(request.getQueryString());
 
+//      Pas sécurisé non plus
         String key = "UEImjlTJmlrI9i4ROW8NpmOig";
         String secret = "AQ9J48zWrY9JYaBi3O98yv1TTskfbwcF6ohWC1U6QmFvzUvdWl";
         String token = "812758932599017473-dV7UhmF4kEMvvQgeDtwoToaJC2qLFB6";
