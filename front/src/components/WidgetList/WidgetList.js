@@ -1,9 +1,19 @@
 import React from "react";
 import "./WidgetList.style.scss"
 
+import param from "../../param";
+
 import CloseIcon from "../../assets/imgs/cancel.svg"
 
 const WidgetList = ({isShow, toggleShow, addWidget}) => {
+
+    const renderButton = (widget) => {
+        return (
+            <button onClick={() => addWidget(widget.name)}>
+                {widget.display_name}
+            </button>
+        )
+    }
 
     return (
         <div
@@ -14,15 +24,7 @@ const WidgetList = ({isShow, toggleShow, addWidget}) => {
             </button>
             <h2>Available widgets</h2>
             <div className="available-widgets">
-                <button onClick={() => addWidget("pokemon-main")}>
-                    Pokemon
-                </button>
-                <button onClick={() => addWidget("stackoverflow-search")}>
-                    StackOverflow Search
-                </button>
-                <button onClick={() => addWidget("twitter-profile")}>
-                    Twitter widget
-                </button>
+                {param.widgets.map(widget => renderButton(widget))}
             </div>
         </div>
     )

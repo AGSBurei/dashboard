@@ -113,3 +113,30 @@
     }
   }
 }
+
+
+.football-live-score .container-api > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 4px;
+
+  .match-card {
+    box-shadow: 0 0 20px -10px gray;
+    border-radius: 8px;
+    width: 31%;
+    padding: 6px 8px;
+    margin: 8px 0;
+  }
+
+  h3, h4 {
+    margin: 0 0 4px;
+    width: 100%;
+    text-align: center;
+  }
+
+  p {
+    margin: 0 0 4px;
+  }
+
+}
