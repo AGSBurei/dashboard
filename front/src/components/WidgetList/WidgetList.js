@@ -9,7 +9,7 @@ const WidgetList = ({isShow, toggleShow, addWidget}) => {
 
     const renderButton = (widget) => {
         return (
-            <button onClick={() => addWidget(widget.name)}>
+            <button key={widget.name} onClick={() => addWidget(widget.name)}>
                 {widget.display_name}
             </button>
         )

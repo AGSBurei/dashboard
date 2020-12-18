@@ -24,7 +24,9 @@ const PokemonWidget = ({widget = {}, saveParams}) => {
         Axios.get(`http://localhost:8080/api/widget/pokemon?pokemon=${pokemonName}`, {headers: authHeader()})
             .then(res => {
                 const pokemonData = res.data;
-                if (pokemonData.sprites !== null) {
+                if (pokemonData.sprites !== null &&
+                    pokemonData.sprites.front_default !== null
+                ) {
                     setPokemon({...pokemonData});
                     savePokemonParam(pokemonName)
                 }

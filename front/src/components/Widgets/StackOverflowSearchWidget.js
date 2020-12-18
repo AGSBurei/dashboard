@@ -20,7 +20,6 @@ const StackOverflowSearchWidget = ({widget = {}, saveParams}) => {
     const onChange = (evt) => {
         setSearch(evt.target.value)
         if (evt.code !== "Enter") return
-
         submitSearch(evt.target.value)
     }
 
