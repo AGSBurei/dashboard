@@ -4,6 +4,7 @@ import TwitterWidget from "./components/Widgets/TwitterWidget";
 import StackOverflowSearchWidget from "./components/Widgets/StackOverflowSearchWidget";
 import NewsWidget from "./components/Widgets/NewsWidget"
 import FootballLiveScoreWidget from "./components/Widgets/FootballLiveScoreWidget";
+import MovieFinderWidget from "./components/Widgets/MovieFinderWidget";
 
 const host = "http://localhost:8080/";
 
@@ -16,6 +17,7 @@ export default {
     footballLiveScore: host + "api/widget/football/live-score",
     pokemonList: host + "api/widget/pokemon/list",
     pokemon: host + "api/widget/pokemon",
+    movie: host + "api/widget/movie",
     widget: {
         save: host + "api/user/widget",
         delete: host + "api/user/widgets/delete",
@@ -55,6 +57,11 @@ export default {
             display_name: "Football Live Score",
             size: 100,
             component: (widget, saveParams) => <FootballLiveScoreWidget/>,
+        }, {
+            name: "movie-finder",
+            display_name: "Movie Finder",
+            size: 50,
+            component: (widget, saveParams) => <MovieFinderWidget/>,
         },
     ]
 

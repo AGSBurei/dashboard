@@ -3,9 +3,10 @@ import axios from "axios";
 import authHeader from "../../services/auth-header";
 import param from "../../param";
 
-const NewsWidget = ({widget = {}, saveParams}) => {
+const MovieFinderWidget = ({widget = {}, saveParams}) => {
 
-    const [newsList, setNewsList] = useState([]);
+    const [movieList, setMovieList] = useState([]);
+    const [selectedMovie, setSelectedMovie] = useState([]);
     const [search, setSearch] = useState("");
 
     useEffect(() => {
@@ -19,14 +20,16 @@ const NewsWidget = ({widget = {}, saveParams}) => {
 
     const onChange = (evt) => {
         setSearch(evt.target.value);
-        if (evt.code !== "Enter") return;
-        submitSearch(evt.target.value)
+        if (evt.target.value.length >= 3) {
+            submitSearch(evt.target.value)
+        }
     };
 
     const submitSearch = (searchValue) => {
-        axios.get(param.news + "?query=" + searchValue, {headers: authHeader()})
+        axios.get(param.movie + "?query=" + searchValue, {headers: authHeader()})
             .then(res => {
-                setNewsList(res.data.articles);
+                console.log(res.data)
+                setMovieList(res.data.results);
                 saveParams({
                     ...widget,
                     params: {
@@ -40,7 +43,7 @@ const NewsWidget = ({widget = {}, saveParams}) => {
 
     const renderNews = (news) => {
         return (
-            <a className="news-details"
+            <a className="movie-details"
                href={news.url}
                key={news.url}
                target="_blank"
@@ -56,16 +59,24 @@ const NewsWidget = ({widget = {}, saveParams}) => {
             <input
                 onKeyDown={(evt) => onChange(evt)}
                 value={search}
+                list="movieList" name="movieList"
                 onChange={(evt) => onChange(evt)}
                 type="text"
-                placeholder="What do you want to search (press enter to validate) ?"
+                placeholder="What movie do you want to search?"
             />
+            <datalist id="movieList">
+                {movieList && movieList.map(movie => {
+                    return (
+                        <option key={movie.title} value={movie.title}/>
+                    )
+                })}
+            </datalist>
 
-            <div className="news-result">
-                {newsList.map(news => renderNews(news))}
+            <div className="movie-results">
+                {/*{movieList.map(news => renderNews(news))}*/}
             </div>
         </div>
     )
 };
 
-export default NewsWidget;
+export default MovieFinderWidget;
