@@ -6,7 +6,7 @@ import param from "../../param";
 const MovieFinderWidget = ({widget = {}, saveParams}) => {
 
     const [movieList, setMovieList] = useState([]);
-    const [selectedMovie, setSelectedMovie] = useState([]);
+    const [selectedMovie, setSelectedMovie] = useState({});
     const [search, setSearch] = useState("");
 
     useEffect(() => {
@@ -20,6 +20,7 @@ const MovieFinderWidget = ({widget = {}, saveParams}) => {
 
     const onChange = (evt) => {
         setSearch(evt.target.value);
+        console.log(evt);
         if (evt.target.value.length >= 3) {
             submitSearch(evt.target.value)
         }
@@ -30,6 +31,7 @@ const MovieFinderWidget = ({widget = {}, saveParams}) => {
             .then(res => {
                 console.log(res.data)
                 setMovieList(res.data.results);
+
                 saveParams({
                     ...widget,
                     params: {
@@ -40,40 +42,30 @@ const MovieFinderWidget = ({widget = {}, saveParams}) => {
             console.log("error:", error)
         })
     };
-
-    const renderNews = (news) => {
-        return (
-            <a className="movie-details"
-               href={news.url}
-               key={news.url}
-               target="_blank"
-               rel="noreferrer"
-            >
-                <span>{news.title} - <span className={"author"}>{news.author}</span></span>
-            </a>
-        )
-    };
+    const renderMovie = (movie) => {
+        console.log(movie)
+    }
 
     return (
         <div>
             <input
                 onKeyDown={(evt) => onChange(evt)}
-                value={search}
                 list="movieList" name="movieList"
-                onChange={(evt) => onChange(evt)}
                 type="text"
                 placeholder="What movie do you want to search?"
             />
-            <datalist id="movieList">
+            <datalist onClick={() => renderMovie()} id="movieList">
                 {movieList && movieList.map(movie => {
                     return (
-                        <option key={movie.title} value={movie.title}/>
+                        <option key={movie.id} value={movie.title}/>
                     )
                 })}
             </datalist>
 
             <div className="movie-results">
-                {/*{movieList.map(news => renderNews(news))}*/}
+                {selectedMovie.poster_path &&
+                <img src={"http://image.tmdb.org/t/p/w300/" + selectedMovie.poster_path} alt=""/>
+                }
             </div>
         </div>
     )

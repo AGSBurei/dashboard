@@ -54,9 +54,8 @@ const NewsWidget = ({widget = {}, saveParams}) => {
     return (
         <div>
             <input
-                onKeyDown={(evt) => onChange(evt)}
-                value={search}
                 onChange={(evt) => onChange(evt)}
+                value={search}
                 type="text"
                 placeholder="What do you want to search (press enter to validate) ?"
             />
