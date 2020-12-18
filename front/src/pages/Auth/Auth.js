@@ -115,9 +115,10 @@ const Auth = ({switchDay}) => {
         <div className="bg">
             {/*<!-----Header------>*/}
             <header className="">
+
                 <div className="header-menu"/>
 
-                <div className="header-title"/>
+                <div className="header-title"><h1>My Dashboard</h1></div>
 
                 <div className="day-night day-night2" onClick={switchDay}>
                     <div className="day-night-toggle"/>

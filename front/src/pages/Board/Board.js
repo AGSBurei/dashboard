@@ -92,7 +92,7 @@ const Board = ({switchDay}) => {
             <header className="">
                 <div className="header-menu"/>
 
-                <div className="header-title"/>
+                <div className="header-title"><h1>My Dashboard</h1></div>
 
                 <div className="day-night day-night3" onClick={switchDay}>
                     <div className="day-night-toggle"/>
@@ -110,10 +110,11 @@ const Board = ({switchDay}) => {
             </header>
             {/*<!-----Main------>*/}
             <main className="">
-                <button className="add-widget" onClick={toggleShowWidgetList}>Add</button>
+
                 <div className="main-block">
                     {renderWidgets()}
                 </div>
+                <button className="add-widget" onClick={toggleShowWidgetList}>Add</button>
             </main>
             <footer>
 
