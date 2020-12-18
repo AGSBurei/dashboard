@@ -4,6 +4,7 @@ import "./WidgetList.style.scss"
 import param from "../../param";
 
 import CloseIcon from "../../assets/imgs/cancel.svg"
+import TwitterWidget from "../Widgets/TwitterWidget";
 
 const WidgetList = ({isShow, toggleShow, addWidget}) => {
 

@@ -14,6 +14,8 @@ export default {
     stackoverflow: host + "api/widget/stackoverflow/search",
     news: host + "api/widget/news_search",
     footballLiveScore: host + "api/widget/football/live-score",
+    pokemonList: host + "api/widget/pokemon/list",
+    pokemon: host + "api/widget/pokemon",
     widget: {
         save: host + "api/user/widget",
         delete: host + "api/user/widgets/delete",
@@ -43,12 +45,12 @@ export default {
             component: (widget, saveParams) => <StackOverflowSearchWidget widget={widget} saveParams={saveParams}/>,
         },
         {
-
             name: "news-widget",
             display_name: "Breaking news",
             size: 50,
             component: (widget, saveParams) => <NewsWidget widget={widget} saveParams={saveParams}/>,
-        },{
+        },
+        {
             name: "football-live-score",
             display_name: "Football Live Score",
             size: 100,

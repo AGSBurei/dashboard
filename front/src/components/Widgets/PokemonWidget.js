@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import Axios from "axios";
 
 import authHeader from "../../services/auth-header";
+import param from "../../param";
 
 const PokemonWidget = ({widget = {}, saveParams}) => {
     const [pokemonList, setPokemonList] = useState([])
@@ -20,11 +21,12 @@ const PokemonWidget = ({widget = {}, saveParams}) => {
     }, []);
 
     const getPokemonInfo = (pokemonName) => {
-        if (pokemonName.length === 0) return
-        Axios.get(`http://localhost:8080/api/widget/pokemon?pokemon=${pokemonName}`, {headers: authHeader()})
+        if (pokemonName.length === 0) return;
+        Axios.get(param.pokemon + `?pokemon=${pokemonName}`, {headers: authHeader()})
             .then(res => {
                 const pokemonData = res.data;
-                if (pokemonData.sprites !== null) {
+                console.log(res.data);
+                if (pokemonData.sprites !== null && pokemonData.sprites.front_default !== null) {
                     setPokemon({...pokemonData});
                     savePokemonParam(pokemonName)
                 }
@@ -34,7 +36,7 @@ const PokemonWidget = ({widget = {}, saveParams}) => {
     };
 
     const getPokemonList = () => {
-        Axios.get("http://localhost:8080/api/widget/pokemon/list", {headers: authHeader()})
+        Axios.get(param.pokemonList, {headers: authHeader()})
             .then(res => {
                 setPokemonList(res.data.results);
                 getInitialPokemonInfo(res.data.results)

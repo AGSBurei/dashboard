@@ -26,7 +26,8 @@ const TwitterWidget = () => {
                target="_blank"
                rel="noreferrer"
             >
-                <span><img alt={"Photo de profil"} src={result.profile_image_url_https}/></span>{result.name}
+                <span>
+                    <img alt={"Photo de profil"} src={result.profile_image_url_https}/></span>{result.name}
                 {result.verified &&
                 <svg
                     viewBox="0 0 24 24" aria-label="Compte certifié"
@@ -46,7 +47,7 @@ const TwitterWidget = () => {
     return (
         <div>
             <input
-                onKeyUp={(evt) => submitSearch(evt)}
+                onKeyDown={(evt) => submitSearch(evt)}
                 type="text"
                 placeholder="Quel utilisateur voulez vous voir ?"
             />
