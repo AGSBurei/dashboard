@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import AuthService from "../../services/auth.service";
 
 import nullImage from "../../assets/imgs/null.png"
+import Header from "../../components/Header";
 
 const Auth = ({switchDay}) => {
     const history = useHistory()
@@ -33,7 +34,7 @@ const Auth = ({switchDay}) => {
     const login = () => {
         AuthService.login(authInfo.username, authInfo.password).then(data => {
             if (data.error) {
-                if (data.error === "activated"){
+                if (data.error === "activated") {
                     setError(data.message);
                 }
             } else {
@@ -114,16 +115,7 @@ const Auth = ({switchDay}) => {
     return (
         <div className="bg">
             {/*<!-----Header------>*/}
-            <header className="">
-
-                <div className="header-menu"/>
-
-                <div className="header-title"><h1>My Dashboard</h1></div>
-
-                <div className="day-night day-night2" onClick={switchDay}>
-                    <div className="day-night-toggle"/>
-                </div>
-            </header>
+            <Header/>
             {/*<!-----Main------>*/}
             <main className="">
                 <div className="c-main-block">
