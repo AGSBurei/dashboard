@@ -8,8 +8,10 @@ import MatchCard from "../MatchCard/MatchCard";
 const FootballLiveScoreWidget = ({widget, saveParams}) => {
     const [matchs, setMatchs] = useState([])
     const [countries, setCountries] = useState([])
+    const [selectedCountry, setSelectedCountry] = useState("")
 
     useEffect(() => {
+        setSelectedCountry(widget.params.country || "")
         getCountries()
     }, [])
 
@@ -19,12 +21,13 @@ const FootballLiveScoreWidget = ({widget, saveParams}) => {
                 const response = res.data
                 if (!response.success) return
                 setCountries(response.data.country)
-                getLiveMatchs()
+                getLiveMatchs(widget.params.country || "")
             })
     }
 
-    const getLiveMatchs = (country = "") => {
+    const getLiveMatchs = (country) => {
         if (countryNotInCountries(country) && country !== "") return
+        setSelectedCountry(country)
         Axios.get(param.footballLiveScore(country), {headers: authHeader()})
             .then((res) => {
                 const response = res.data
@@ -50,6 +53,7 @@ const FootballLiveScoreWidget = ({widget, saveParams}) => {
                 onChange={(event) => getLiveMatchs(event.target.value)}
                 id={`countriesList${widget.id}`}
                 name="countriesList"
+                value={selectedCountry}
             >
                 <option key="0" value="">
                     All countries
@@ -63,6 +67,7 @@ const FootballLiveScoreWidget = ({widget, saveParams}) => {
                 })}
             </select>
             <div className="matchs-container">
+                {matchs.length === 0 && <p>No matchs today for this country.</p>}
                 {matchs.map(match => <MatchCard key={match.id} match={match}/>)}
             </div>
         </div>

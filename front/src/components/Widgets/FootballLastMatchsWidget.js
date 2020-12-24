@@ -9,6 +9,7 @@ const FootballLastMatchsWidget = ({widget, saveParams}) => {
     const [matchs, setMatchs] = useState([])
     const [competitions, setCompetitions] = useState([])
 
+
     useEffect(() => {
         getCompetitions()
     }, [])
@@ -19,13 +20,13 @@ const FootballLastMatchsWidget = ({widget, saveParams}) => {
                 const response = res.data
                 if (!response.success) return
                 setCompetitions(response.data.competition)
-                getLastMatchs()
+                getLastMatchs(widget.params.competition || '5')
             })
     }
 
 
 
-    const getLastMatchs = (competition = "5") => {
+    const getLastMatchs = (competition) => {
         Axios.get(param.footballLastMatchs(competition), {headers: authHeader()})
             .then((res) => {
                 const response = res.data
@@ -46,6 +47,7 @@ const FootballLastMatchsWidget = ({widget, saveParams}) => {
                 onChange={(event) => getLastMatchs(event.target.value)}
                 id={`competitionsList${widget.id}`}
                 name="competitionsList"
+                value={widget.params.competition}
             >
                 {competitions.map(competition => {
                     return (
@@ -56,6 +58,7 @@ const FootballLastMatchsWidget = ({widget, saveParams}) => {
                 })}
             </select>
             <div className="matchs-container">
+                {matchs && matchs.length === 0 && <p>No matchs for this league the last few days.</p>}
                 {matchs.map(match => <MatchCard key={match.id} match={match} />)}
             </div>
         </div>
