@@ -4,6 +4,7 @@ import TwitterWidget from "./components/Widgets/TwitterWidget";
 import StackOverflowSearchWidget from "./components/Widgets/StackOverflowSearchWidget";
 import NewsWidget from "./components/Widgets/NewsWidget"
 import FootballLiveScoreWidget from "./components/Widgets/FootballLiveScoreWidget";
+import FootballLastMatchsWidget from "./components/Widgets/FootballLastMatchsWidget";
 
 const host = "http://localhost:8080/";
 
@@ -13,9 +14,12 @@ export default {
     twitter: host + "api/widget/twitter_search",
     stackoverflow: host + "api/widget/stackoverflow/search",
     news: host + "api/widget/news_search",
-    footballLiveScore: host + "api/widget/football/live-score",
     pokemonList: host + "api/widget/pokemon/list",
     pokemon: host + "api/widget/pokemon",
+    footballLiveScore: (countryID) => host + "api/widget/football/live-score?countryID=" + countryID,
+    footballLastMatchs: (competitionID) => host + "api/widget/football/last-matchs?competitionID=" + competitionID,
+    footballCompetitions: host + "api/widget/football/competitions",
+    footballCountries: host + "api/widget/football/countries",
     widget: {
         save: host + "api/user/widget",
         delete: host + "api/user/widgets/delete",
@@ -54,7 +58,12 @@ export default {
             name: "football-live-score",
             display_name: "Football Live Score",
             size: 100,
-            component: (widget, saveParams) => <FootballLiveScoreWidget/>,
+            component: (widget, saveParams) => <FootballLiveScoreWidget widget={widget} saveParams={saveParams}/>,
+        },{
+            name: "football-last-matchs",
+            display_name: "Football Last Matchs",
+            size: 100,
+            component: (widget, saveParams) => <FootballLastMatchsWidget widget={widget} saveParams={saveParams}/>,
         },
     ]
 
