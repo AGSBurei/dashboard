@@ -60,7 +60,7 @@ export default {
         }, {
             name: "movie-finder",
             display_name: "Movie Finder",
-            size: 50,
+            size: 75,
             component: (widget, saveParams) => <MovieFinderWidget/>,
         },
     ]

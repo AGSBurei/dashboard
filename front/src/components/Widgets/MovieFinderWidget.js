@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react"
 import axios from "axios";
 import authHeader from "../../services/auth-header";
 import param from "../../param";
+import Moment from "moment"
+
 
 const MovieFinderWidget = ({widget = {}, saveParams}) => {
 
@@ -19,8 +21,13 @@ const MovieFinderWidget = ({widget = {}, saveParams}) => {
     }, []);
 
     const onChange = (evt) => {
-        setSearch(evt.target.value);
-        console.log(evt);
+        if (evt.nativeEvent.data === undefined) {
+            //Oui on touche au dom mais Raf ok ?
+            let movieId = parseInt(document.querySelector(`#movieList option[value="${evt.target.value}"]`).getAttribute("data-id"))
+            const result = movieList.filter(movie => movie.id === movieId)
+            setSelectedMovie(result[0]);
+            return;
+        }
         if (evt.target.value.length >= 3) {
             submitSearch(evt.target.value)
         }
@@ -42,31 +49,49 @@ const MovieFinderWidget = ({widget = {}, saveParams}) => {
             console.log("error:", error)
         })
     };
-    const renderMovie = (movie) => {
-        console.log(movie)
+    const displayDate = (date) => {
+        console.log(date)
+        if (!date) return;
+        let release = Moment(date)
+        Moment.locale('fr', {
+            months: 'Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Août_Septembre_Octobre_Novembre_Décembre'.split('_'),
+        })
+
+        return release.format('DD MMMM YYYY');
     }
 
     return (
         <div>
             <input
-                onKeyDown={(evt) => onChange(evt)}
+                onChange={(evt) => onChange(evt)}
                 list="movieList" name="movieList"
                 type="text"
+                id="movie-input"
                 placeholder="What movie do you want to search?"
             />
-            <datalist onClick={() => renderMovie()} id="movieList">
+
+            <datalist id="movieList">
                 {movieList && movieList.map(movie => {
                     return (
-                        <option key={movie.id} value={movie.title}/>
+                        <option data-id={movie.id} key={movie.id} value={movie.title}/>
                     )
                 })}
             </datalist>
 
+            {selectedMovie &&
             <div className="movie-results">
                 {selectedMovie.poster_path &&
-                <img src={"http://image.tmdb.org/t/p/w300/" + selectedMovie.poster_path} alt=""/>
+                <div className="backdrop">
+                    <img src={"http://image.tmdb.org/t/p/w300/" + selectedMovie.poster_path} alt=""/>
+                </div>
                 }
+                <div className={"content"}>
+                    <h3>{selectedMovie.title}</h3>
+                    <span className="date">{displayDate(selectedMovie.release_date)}</span>
+                    <p>{selectedMovie.overview}</p>
+                </div>
             </div>
+            }
         </div>
     )
 };

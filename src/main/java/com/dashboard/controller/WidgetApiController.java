@@ -51,8 +51,26 @@ public class WidgetApiController {
         String apikey = "a548a1016a9c4fd6aa6979a0cfd8183c";
 
         try {
-            HttpResponse<String> response = Unirest.get("http://newsapi.org/v2/everything?q="+values.get("query")+"&sortBy=popularity")
+            HttpResponse<String> response = Unirest.get("http://newsapi.org/v2/everything?q=" + values.get("query") + "&sortBy=popularity")
                     .header("Authorization", "Bearer " + apikey)
+                    .asString();
+
+            return ResponseEntity.ok(response.getBody());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/movie")
+    public ResponseEntity<String> movieSearch(HttpServletRequest request) {
+        Map<String, String> values = GetQueryStrings.getQueryMap(request.getQueryString());
+
+//      Pas sécurisé
+        String apikey = "ff092ffd7ed5dbf723ebe9ec2c50434b";
+
+        try {
+            HttpResponse<String> response = Unirest.get("https://api.themoviedb.org/3/search/movie?api_key=" + apikey + "&language=fr-FR&query=" + values.get("query") + "&sortBy=popularity")
                     .asString();
 
             return ResponseEntity.ok(response.getBody());
