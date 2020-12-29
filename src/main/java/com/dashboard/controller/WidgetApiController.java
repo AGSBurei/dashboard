@@ -160,10 +160,61 @@ public class WidgetApiController {
 
     @GetMapping("/football/live-score")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<String> footballLiveScore() {
+    public ResponseEntity<String> footballLiveScore(@RequestParam String countryID) {
+        try {
+            String url = null;
+            if (countryID.equals("")) {
+                url = "http://livescore-api.com/api-client/scores/live.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe";
+            } else {
+                url = "http://livescore-api.com/api-client/scores/live.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe&country=" + countryID;
+            }
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get(url)
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/football/last-matchs")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> footballLastMatchs(@RequestParam String competitionID) {
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest
-                    .get("http://livescore-api.com/api-client/scores/live.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe")
+                    .get("http://livescore-api.com/api-client/scores/history.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe&from=2020-12-10&competition_id=" + competitionID)
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/football/competitions")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> footballCompetitions() {
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("https://livescore-api.com/api-client/competitions/list.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe&country_id=21")
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/football/countries")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> footballCountries() {
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("https://livescore-api.com/api-client/countries/list.json?&key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe")
                     .header("accept", "application/json")
                     .asJson();
             return ResponseEntity.ok(jsonResponse.getBody().toString());

@@ -50,7 +50,6 @@ const MovieFinderWidget = ({widget = {}, saveParams}) => {
         })
     };
     const displayDate = (date) => {
-        console.log(date)
         if (!date) return;
         let release = Moment(date)
         Moment.locale('fr', {
