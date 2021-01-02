@@ -126,32 +126,52 @@ a.news-details {
       fill: rgba(29, 161, 242, 1.00);
     }
   }
-
 }
 
 
-.football-live-score .container-api > div {
+.football-live-score .container-api {
+  .matchs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 4px;
+  }
+}
+#movie-input {
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
+}
+
+.movie-results {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding-top: 4px;
+  margin: 10px;
 
-  .match-card {
-    box-shadow: 0 0 20px -10px gray;
-    border-radius: 8px;
-    width: 31%;
-    padding: 6px 8px;
-    margin: 8px 0;
+  .backdrop {
+    flex: 0 0 15%;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
   }
 
-  h3, h4 {
-    margin: 0 0 4px;
-    width: 100%;
-    text-align: center;
+  h3 {
+    margin: 0
   }
 
-  p {
-    margin: 0 0 4px;
+  .content {
+    margin: 0 10px;
+
+    .date {
+      color: grey;
+      font-style: italic;
+    }
+
+    p {
+      margin: 5px 0;
+    }
   }
+
 }
 

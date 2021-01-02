@@ -3,7 +3,7 @@ import axios from "axios";
 import authHeader from "../../services/auth-header";
 import param from "../../param";
 
-const StackOverflowSearchWidget = ({widget = {}, saveParams}) => {
+const NewsWidget = ({widget = {}, saveParams}) => {
 
     const [newsList, setNewsList] = useState([]);
     const [search, setSearch] = useState("");
@@ -54,9 +54,8 @@ const StackOverflowSearchWidget = ({widget = {}, saveParams}) => {
     return (
         <div>
             <input
-                onKeyUp={(evt) => onChange(evt)}
-                value={search}
                 onChange={(evt) => onChange(evt)}
+                value={search}
                 type="text"
                 placeholder="What do you want to search (press enter to validate) ?"
             />
@@ -68,4 +67,4 @@ const StackOverflowSearchWidget = ({widget = {}, saveParams}) => {
     )
 };
 
-export default StackOverflowSearchWidget;
+export default NewsWidget;

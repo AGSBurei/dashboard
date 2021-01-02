@@ -15,12 +15,12 @@ body {
 }
 
 .theme-l {
-    --c-bg: #edf1f1;
+    --c-bg: #ebebeb;
     --c-txt: rgb(85, 85, 85);
 }
 
 .theme-d {
-    --c-bg: black;
+    --c-bg: #1a1a1a;
 }
 
 .t {
@@ -71,23 +71,25 @@ html {
 }
 
 .bg {
-    background-color: var(--c-bg);
+    background-color: var(--c-bg, #ebebeb);
     width: 100%;
     height: 100vh;
     overflow: hidden;
-
-
-    background-image: url("assets/imgs/Wallpaper.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
 }
 
 header {
     /*width: 100%;*/
-    height: 64px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     position: relative;
+
 }
+
 
 main {
     /*width: 100%;*/
@@ -101,40 +103,37 @@ footer {
 }
 
 /*----Header----*/
+
+h1 {
+    margin: 0;
+    text-align: center;
+    font-family:var(--font-title) ;
+    color:#dd48fa;
+}
+
 .header-menu {
-    position: absolute;
-    width: 400px;
-    height: 100%;
-    display: inline-block;
+    display: none;
 }
 
 .header-title {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    height: 100%;
-    display: inline-block;
-    font-family: var(--font-title);
-
-    background-image: url("assets/imgs/title.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100%;
-
+    flex: 0 0 33.333333%;
+}
+.login .header-title {
+    flex: 0 0 100%;
 }
 
 .header-user {
-    position: absolute;
-    right: 0;
-    width: 300px;
-    height: 100%;
-    display: inline-block;
+    display: flex;
+    flex: 0 0 33.333333%;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+.header-user-wrapper{
+    display: flex;
 }
 
 .header-user p {
-    margin-top: 25px;
-    margin-right: 86px;
+    margin: auto 10px auto;
     color: var(--c-txt);
     font-family: var(--font-txt);
     font-size: 18px;
@@ -142,18 +141,15 @@ footer {
 }
 
 .header-user-pfp {
-    position: absolute;
-    top: 12px;
-    right: 24px;
     width: 48px;
     height: 48px;
-    border-radius: 50px;
+    border-radius: 50%;
     background-image: url("assets/imgs/user.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
     background-color: #f0c3ee;
-    border: 2px solid #f57af1;
+    /*border: 2px solid #f57af1;*/
 }
 
 .menu-button {
@@ -195,7 +191,7 @@ footer {
     margin-left: 20px;
     margin-top: 20px;
 
-    border: 5px solid;
+    /*border: 5px solid;*/
     /*border-image-source: linear-gradient(144deg,
         rgba(95,229,211,1) 0%,
         rgba(83,225,126,1) 33%,
@@ -222,7 +218,7 @@ footer {
 
 .container-block {
     width: calc(25% - 20px);
-    height: 300px;
+    height: 320px;
     display: flex;
     margin: 10px;
     position: relative;
@@ -234,7 +230,7 @@ footer {
 .container-bd {
     height: 100%;
     width: 5px;
-    border-radius: 5px 0 0 5px;
+    border-radius: 3px 0 0 3px;
     background-image: linear-gradient(lightgray, gray);
     position: absolute;
     left: 0;
@@ -243,11 +239,11 @@ footer {
 .container-bg {
     height: 100%;
     width: calc(100% - 5px);
-    /*background-color: white;*/
-    background-image: linear-gradient(145deg, #ffffff, #ececec);
-    position: absolute;
-    left: 5px;
-    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.15);
+    margin-left: 5px;
+    background-color: white;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.20);
 }
 
 .container-header {
@@ -302,10 +298,6 @@ footer {
     background-size: 100%;
 }
 
-.container-more:hover {
-    background-size: 110%;
-}
-
 .container-header h3 {
     position: absolute;
     top: 14px;
@@ -339,66 +331,46 @@ footer {
 
 .widget-menu, .widget-list {
     position: absolute;
-    top: 32px;
-    left: 32px;
-
-    width: 0;
-    height: 0;
-
-    background-image: linear-gradient(145deg, #ffffff, #ececec);
-    border: 2px solid rgb(199, 199, 199);
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.075);
-
-    overflow: hidden;
-    visibility: hidden;
-    opacity: 0;
-    z-index: 0;
+    top: 30px;
+    right: 2px;
+    background: #dd48fa;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.20);
+    display: none;
+    z-index: 10;
     cursor: pointer;
 }
 
 .widget-menu- {
-    width: 150px;
-    height: auto;
-
-    visibility: visible;
-    opacity: 1;
-    z-index: 1000;
+    width: 120px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.20);
+    border-radius: 3px;
 }
 
 .widget-menu-opt, .widget-list-opt {
-    height: 32px;
     font-family: var(--font-txt);
-    color: var(--c-txt);
+    color: white;
     font-weight: bold;
     font-size: 16px;
-    padding-left: 10px;
-    padding-top: 5px;
-    background-image: linear-gradient(145deg, #ffffff, #ececec);
     transition: all 0.1s;
-    border-bottom: 1px solid lightgray;
+    text-align: center;
 }
 
 .widget-menu-opt:hover {
-    background-image: linear-gradient(145deg, #eeeeee, #d4d4d4);
-    font-size: 18px;
-    padding-top: 3px;
 }
 
 
 .widget-list- {
     width: 200px;
     height: auto;
-
     visibility: visible;
     opacity: 1;
     z-index: 1000;
 }
 
-.widget-list-opt:hover {
-    background-image: linear-gradient(145deg, #eeeeee, #d4d4d4);
-    font-size: 18px;
-    padding-top: 3px;
-}
 
 /*------------Widget New------------*/
 .wid-new .container-bg {
@@ -832,34 +804,27 @@ input:-webkit-autofill:active {
 /*------------Menu DropDown--------------------------------------------*/
 .menu-dropdown {
     position: absolute;
-    top: 44px;
-    right: 0;
-    background-color: lightblue;
-    border: 2px solid black;
-    border-radius: 5px;
-    box-shadow: 2px 2px 3px darkblue;
-    overflow: hidden;
-    height: 0;
-    width: 0;
-    visibility: hidden;
-    opacity: 0;
-    z-index: 9000;
+    top: 65px;
+    right: 20px;
+    border-radius: 3px;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.20);
+    display:none;
+    z-index: 10;
     transition: 0.2s;
+    background: #dd48fa;
 }
 
 .menu-dropdown-on {
-    height: auto;
-    width: auto;
-    visibility: visible;
-    opacity: 1;
+    display: block;
     transition: 0.2s;
 }
 
 .menu-list {
-    color: black;
+    color: white;
+    text-decoration: none;
     line-height: 40px;
-    border-bottom: 1px solid black;
-    padding: 10px;
+    padding: 10px 15px;
+    /*border-bottom: 1px solid black;*/
 }
 
 /*------------Day-Night--------------------------------------------*/
@@ -883,8 +848,9 @@ input:-webkit-autofill:active {
 }
 
 .day-night3 {
-    top: 25px;
-    right: 250px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 200px;
 }
 
 .day-night-toggle {
@@ -895,8 +861,8 @@ input:-webkit-autofill:active {
     height: 20px;
     width: 20px;
     border-radius: 25px;
-    /*background-color: blue;*/
-    background-image: linear-gradient(101deg, #78e4ff, #ff48fa);
+    background-color: #ff48fa;
+    /*background-image: linear-gradient(101deg, #78e4ff, #ff48fa);*/
     transition: 0.2s;
 }
 
@@ -935,15 +901,18 @@ input:-webkit-autofill:active {
 
 
 .add-widget {
-    border: 4px solid black;
-    border-image-source: linear-gradient(145deg, #78e4ff, #ff48fa);
+    border: 4px solid #dd48fa;
+    /*background: #ff48fa;*/
+    background: #dd48fa;
+    color: white;
+    margin: auto;
     border-image-slice: 1;
     border-radius: 8px;
     padding: 6px 16px;
     font-weight: 700;
     font-family: var(--font-title);
-    margin-left: 20px;
     cursor: pointer;
+    display: flex;
 }
 
 /* Changement de size widget */

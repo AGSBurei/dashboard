@@ -48,7 +48,7 @@ const Widget = ({widget, removeWidget}) => {
                     <div className="container-line"/>
                     <div className="container-more" onClick={toggleWidgetMenu}>
                         <div className={`widget-menu ${menu ? "widget-menu-" : ""}`}>
-                            <div className="widget-menu-opt" onClick={removeWidget}>Delete</div>
+                            <a className="widget-menu-opt" onClick={removeWidget}>Delete</a>
                         </div>
                     </div>
                 </div>

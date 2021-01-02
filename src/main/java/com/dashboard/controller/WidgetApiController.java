@@ -82,6 +82,24 @@ public class WidgetApiController {
         return null;
     }
 
+    @GetMapping("/movie")
+    public ResponseEntity<String> movieSearch(HttpServletRequest request) {
+        Map<String, String> values = GetQueryStrings.getQueryMap(request.getQueryString());
+
+//      Pas sécurisé
+        String apikey = "ff092ffd7ed5dbf723ebe9ec2c50434b";
+
+        try {
+            HttpResponse<String> response = Unirest.get("https://api.themoviedb.org/3/search/movie?api_key=" + apikey + "&language=fr-FR&query=" + values.get("query") + "&sortBy=popularity")
+                    .asString();
+
+            return ResponseEntity.ok(response.getBody());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
 
     @GetMapping("/twitter_search")
     public ResponseEntity<String> twitterSearch(HttpServletRequest request) {
@@ -162,10 +180,61 @@ public class WidgetApiController {
 
     @GetMapping("/football/live-score")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<String> footballLiveScore() {
+    public ResponseEntity<String> footballLiveScore(@RequestParam String countryID) {
+        try {
+            String url = null;
+            if (countryID.equals("")) {
+                url = "http://livescore-api.com/api-client/scores/live.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe";
+            } else {
+                url = "http://livescore-api.com/api-client/scores/live.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe&country=" + countryID;
+            }
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get(url)
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/football/last-matchs")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> footballLastMatchs(@RequestParam String competitionID) {
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest
-                    .get("http://livescore-api.com/api-client/scores/live.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe")
+                    .get("http://livescore-api.com/api-client/scores/history.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe&from=2020-12-10&competition_id=" + competitionID)
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/football/competitions")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> footballCompetitions() {
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("https://livescore-api.com/api-client/competitions/list.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe&country_id=21")
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/football/countries")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> footballCountries() {
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("https://livescore-api.com/api-client/countries/list.json?&key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe")
                     .header("accept", "application/json")
                     .asJson();
             return ResponseEntity.ok(jsonResponse.getBody().toString());

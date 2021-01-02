@@ -6,18 +6,12 @@ import Auth from "./pages/Auth/Auth";
 import Board from "./pages/Board/Board";
 
 const App = () => {
-    const [day, setDay] = useState(true);
 
-    const switchDay = () => {
-        document.querySelector(".day-night-toggle").classList.toggle("day-night-toggle-off")
-        document.querySelector("html").classList.toggle("theme-d")
-        setDay(!day);
-    }
 
     return (
         <Switch>
-            <Route exact path={["/", "/login"]} render={() => <Auth switchDay={switchDay} />}/>
-            <Route path="/board" render={() => <Board switchDay={switchDay} />}/>
+            <Route exact path={["/", "/login"]} render={() => <Auth />}/>
+            <Route path="/board" render={() => <Board />}/>
         </Switch>
     );
 };

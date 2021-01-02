@@ -7,15 +7,15 @@ import AuthService from "../../services/auth.service";
 import Widget from "../../components/Widgets/Widget";
 import WidgetList from "../../components/WidgetList/WidgetList";
 import authHeader from "../../services/auth-header";
+import Header from "../../components/Header"
 import param from "../../param";
 
-const Board = ({switchDay}) => {
+const Board = () => {
     const history = useHistory();
 
     const [showWidgetList, setShowWidgetList] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
     const [widgets, setWidgets] = useState([]);
-    const [showMenu, setShowMenu] = useState(false);
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
@@ -53,11 +53,6 @@ const Board = ({switchDay}) => {
         )
     };
 
-    const openMenu = () => {
-        document.querySelector(".menu-dropdown").classList.toggle("menu-dropdown-on");
-        setShowMenu(!showMenu);
-    };
-
     const removeWidget = (widget) => {
         Axios.post(param.widget.delete, widget, {headers: authHeader()})
             .then(() => {
@@ -89,31 +84,14 @@ const Board = ({switchDay}) => {
         <div className="bg">
             <WidgetList isShow={showWidgetList} toggleShow={toggleShowWidgetList} addWidget={addWidget}/>
 
-            <header className="">
-                <div className="header-menu"/>
-
-                <div className="header-title"/>
-
-                <div className="day-night day-night3" onClick={switchDay}>
-                    <div className="day-night-toggle"/>
-                </div>
-
-                <div onClick={openMenu} className="header-user">
-                    <p>Hello {currentUser.username}</p>
-                    <div className="header-user-pfp"/>
-                    <div className="menu-dropdown">
-                        <a className="menu-list" onClick={AuthService.logout} href="/login"
-                           id="disconnection">Déconnexion</a>
-                    </div>
-                </div>
-
-            </header>
+            <Header currentUser={currentUser}/>
             {/*<!-----Main------>*/}
             <main className="">
-                <button className="add-widget" onClick={toggleShowWidgetList}>Add</button>
+
                 <div className="main-block">
                     {renderWidgets()}
                 </div>
+                <button className="add-widget" onClick={toggleShowWidgetList}>Add</button>
             </main>
             <footer>
 
