@@ -95,7 +95,6 @@ public class AuthController {
             boolean emailVerified = payload.getEmailVerified();
 
 
-
             if (userRepository.existsByGoogleId(userId)) {
                 User user = userRepository.findByGoogleId(userId).orElseThrow(()
                         -> new UsernameNotFoundException("User Not Found"));
@@ -130,7 +129,8 @@ public class AuthController {
             if (userRepository.existsByEmail(payload.getEmail())) {
                 return ResponseEntity
                         .badRequest()
-                        .body(new ErrorResponse("Error: Email is already in use!", "email"));            }
+                        .body(new ErrorResponse("Error: Email is already in use!", "email"));
+            }
 
 //          Si on ne trouve pas d'email on crée un compte
 
@@ -201,7 +201,7 @@ public class AuthController {
         }
 
         //Si l'utilisateur est relié à Google alors il ne peut pas se connecter comme ça
-        if (user.getGoogleId().equals(null)) {
+        if (user.getGoogleId() == null) {
 
             return ResponseEntity.ok(new JwtResponse(jwt,
                     userDetails.getId(),
