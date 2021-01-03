@@ -2,9 +2,11 @@ import React, {useState, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 
 import AuthService from "../../services/auth.service";
-
+import GoogleLogin, {GoogleLogout} from "react-google-login";
 import nullImage from "../../assets/imgs/null.png"
 import Header from "../../components/Header";
+import Axios from "axios";
+import param from "../../param";
 
 const Auth = ({switchDay}) => {
     const history = useHistory()
@@ -17,7 +19,7 @@ const Auth = ({switchDay}) => {
         email: "",
         password: "",
         passwordConfirm: ""
-    })
+    });
     const [quote, setQuote] = useState([
         "Don't have an account?",
         "Create your account!"
@@ -38,8 +40,8 @@ const Auth = ({switchDay}) => {
                     setError(data.message);
                 }
             } else {
-                setError("");
                 console.log("connection data:", data);
+                setError("");
                 history.push("/board");
             }
         }).catch((err) => {
@@ -110,7 +112,32 @@ const Auth = ({switchDay}) => {
         }
         setInscription(!inscription)
 
-    }
+    };
+
+    const onSuccess = (response) => {
+        console.log(response);
+        const idTokenString = response.tokenId
+        const params = new FormData();
+        params.append("idTokenString", response.tokenId);
+        Axios.post(param.oauth, {idTokenString}).then((resp) => {
+            console.log(resp);
+            if (resp.data.accessToken) {
+                localStorage.setItem("user", JSON.stringify(resp.data));
+                setError("");
+                history.push("/board");
+            } else {
+                setSuccess(resp.data.message);
+                setTimeout(() => {
+                    setInscription(false);
+                    toggleInscription();
+                }, 1000)
+            }
+        })
+    };
+
+    const onFailure = (response) => {
+        console.log(response)
+    };
 
     return (
         <div className="bg">
@@ -188,7 +215,11 @@ const Auth = ({switchDay}) => {
 
                     <div className="c-form-block2">
                         <p>-or connect with-</p>
-                        <div className="c-OOT c-Google"/>
+                        {/*<div className="c-OOT c-Google"/>*/}
+                        <GoogleLogin
+                            clientId={"133786515991-9rrvm23808737kqbunsh88ukh1cm5g7p.apps.googleusercontent.com"}
+                            onSuccess={onSuccess} onFailure={onFailure}
+                        />
                         <div className="c-OOT c-Twitter"/>
                     </div>
                     <div className="c-form-footer">
