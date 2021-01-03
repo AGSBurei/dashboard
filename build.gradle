@@ -48,7 +48,7 @@ task copyFrontendToBuild(type: Copy) {
 }
 
 task npmBuild(type: NpmTask) {
-    dependsOn('npmInstall2')
+    dependsOn('npmInstall')
     execOverrides {
         it.workingDir = '/front'
     }
