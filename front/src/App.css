@@ -1100,7 +1100,24 @@ input:-webkit-autofill:active {
     }
 }
 
+@media (max-width: 1000px) {
+    .container-block {
+        width: 100%;
+    }
+
+    .header-user {
+        padding-left: 10px;
+    }
+
+    .main-block {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
 @media (max-width: 870px) {
+
     .c-main-block {
         background-image: none;
         width: 500px;
@@ -1147,6 +1164,7 @@ input:-webkit-autofill:active {
     .c-form-block {
         width: 100%;
     }
+
     .c-form {
         padding: 0 20px;
     }
@@ -1156,10 +1174,12 @@ input:-webkit-autofill:active {
         padding-left: 10px;
         box-sizing: border-box;
     }
+
     .day-night3 {
         left: 10px;
     }
 }
+
 @media (max-width: 350px) {
     .header-title h1 {
         font-size: 1.8em;
