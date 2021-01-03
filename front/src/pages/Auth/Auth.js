@@ -80,7 +80,8 @@ const Auth = ({switchDay}) => {
         setAuthInfo({...authInfo, [name]: value})
     };
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
         if (inscription) {
             const isRegistered = register();
             if (isRegistered) {
@@ -171,7 +172,7 @@ const Auth = ({switchDay}) => {
 
                             <div>
                                 <input className="c-form-input"
-                                       type="text"
+                                       type="password"
                                        name="password"
                                        onKeyUp={onFormChange}
                                        id="mdp"
@@ -183,7 +184,7 @@ const Auth = ({switchDay}) => {
                             </div>
 
                             <div className="c-form-input-wrapper">
-                                <input className="c-form-input c2" type="text" name="passwordConfirm"
+                                <input className="c-form-input c2" type="password" name="passwordConfirm"
                                        onKeyUp={onFormChange} id="mdp"
                                        placeholder="confirm password"/>
                                 <div className="c-error-zone" id="error-mdp2">
@@ -198,18 +199,10 @@ const Auth = ({switchDay}) => {
                                 success : {success}
                             </div>)}
 
-                            <div className="c-form-input-wrapper-connection">
-                                <div className="c-checkbox-zone">
-                                    <div className="c-checkbox"
-                                         onClick={(event) => event.target.classList.toggle("c-checkbox-")}/>
-                                    <p className="c-checkbox-txt">Stay connected</p>
-                                </div>
-                                <input type="checkbox" className="c-checkbox-inp"/>
-                            </div>
+                            <button type="submit" className="c-form-button" onClick={(event) => onSubmit(event)}>
+                                {inscription ? "Inscription" : "Connection"}
+                            </button>
                         </form>
-                        <button type="button" className="c-form-button" onClick={onSubmit}>
-                            {inscription ? "Inscription" : "Connection"}
-                        </button>
                         <img src={nullImage} alt="Computer Man" className="c-notif"/>
                     </div>
 
@@ -220,9 +213,6 @@ const Auth = ({switchDay}) => {
                             clientId={"133786515991-9rrvm23808737kqbunsh88ukh1cm5g7p.apps.googleusercontent.com"}
                             onSuccess={onSuccess} onFailure={onFailure}
                         />
-                    </div>
-                    <div className="c-form-footer">
-                        <h6>A WebApp created par des beaux gosses</h6>
                     </div>
 
                 </div>
