@@ -12,6 +12,7 @@ const host = "http://localhost:8080/";
 export default {
     host: host,
     auth: host + "api/auth/",
+    oauth: host + "api/auth/oauth/google",
     twitter: host + "api/widget/twitter_search",
     stackoverflow: host + "api/widget/stackoverflow/search",
     news: host + "api/widget/news_search",
