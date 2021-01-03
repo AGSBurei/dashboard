@@ -223,4 +223,34 @@ public class WidgetApiController {
         }
         return null;
     }
+
+    @GetMapping("/steam/game/news")
+    //@PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> gameNews(@RequestParam String game){
+        try {
+            HttpResponse<JsonNode> jsonNodeHttpResponse = Unirest
+                    .get("https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=" +game+"&count=5")
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonNodeHttpResponse.getBody().toString());
+        }catch (UnirestException e){
+            System.out.println("Unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/steam/game/achievement")
+    //@PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> gameAchievement(@RequestParam String game){
+        try {
+            HttpResponse<JsonNode> jsonNodeHttpResponse = Unirest
+                    .get(" http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + game)
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonNodeHttpResponse.getBody().toString());
+        }catch (UnirestException e){
+            System.out.println("Unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
 }

@@ -6,7 +6,7 @@ import NewsWidget from "./components/Widgets/NewsWidget"
 import FootballLiveScoreWidget from "./components/Widgets/FootballLiveScoreWidget";
 import FootballLastMatchsWidget from "./components/Widgets/FootballLastMatchsWidget";
 import MovieFinderWidget from "./components/Widgets/MovieFinderWidget";
-
+import SteamGameNews from "./components/Widgets/SteamGameNews";
 const host = "http://localhost:8080/";
 
 export default {
@@ -22,6 +22,7 @@ export default {
     footballLastMatchs: (competitionID) => host + "api/widget/football/last-matchs?competitionID=" + competitionID,
     footballCompetitions: host + "api/widget/football/competitions",
     footballCountries: host + "api/widget/football/countries",
+    steamNews: (gameID) => host + "api/widget/steam/game/news?gameID="+gameID,
     widget: {
         save: host + "api/user/widget",
         delete: host + "api/user/widgets/delete",
@@ -71,7 +72,12 @@ export default {
             display_name: "Football Last Matchs",
             size: 100,
             component: (widget, saveParams) => <FootballLastMatchsWidget widget={widget} saveParams={saveParams}/>,
-        },
+        }, {
+            name: "steam-game-latest-news",
+            display_name: "steam game latest news",
+            size: 100,
+            component:(widget, saveParams) => <SteamGameNews widget={widget} saveParams={saveParams}/>,
+        }
     ]
 
 
