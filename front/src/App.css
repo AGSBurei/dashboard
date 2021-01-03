@@ -437,6 +437,174 @@ h1 {
 .wid-youtube .container-line {
     border-bottom: 3px solid rgba(255, 255, 255, 0.66);
 }
+/*------------Widget Covid et Meteo------------*/
+.wid-covid-input{
+    margin-left: 5%;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    width: 50%;
+    height: 28px;
+    display: block;
+
+    border-radius: 16px;
+    background-color: rgb(217, 121, 255);
+}
+.wid-covid-input input{
+    background-color: transparent;
+    border: transparent;
+    margin-left: 10px;
+    color: white;
+    font-family: var(--font-txt);
+    width: calc(100% - 15px);
+    display: inline-block;
+}
+.wid-covid-input input::-webkit-input-placeholder {
+    color: white;
+    font-family: var(--font-txt);
+    font-weight: bold;
+    display: inline-block;
+}
+
+.wid-covid-block{
+    display: inline-block;
+    width: 50%;
+    height: 70%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.wid-covid-block h3{
+    font-family: var(--font-title);
+    font-size: 32px;
+}
+.wid-covid-block p{
+    font-family: var(--font-txt);
+    font-size: 22px;
+}
+
+
+
+
+.wid-meteo-container{
+    width: 100%;
+    height: 70%;
+    display: block;
+    /*overflow: hidden;
+    overflow-y: auto;*/
+}
+.wid-meteo-data{
+    margin-left: 5%;
+    margin-top: 3px;
+    width: 90%;
+    height: 24px;
+    display: block;
+
+    border-radius: 16px;
+    background-color: rgb(233, 233, 233);
+
+}
+.wid-meteo-data h6{
+    display: inline-block;
+    margin-left: 20px;
+    width: 80px;
+    transform: translateY(-22px);
+}
+.wid-meteo-data img{
+    display: inline-block;
+    transform: translateY(-16px);
+    /*width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 75%;*/
+}
+.wid-meteo-data strong{
+    display: inline-block;
+    transform: translateY(-20px);
+}
+.wid-meteo-data p{
+    display: inline-block;
+    margin-left: 5px;
+    transform: translateY(-20px);
+}
+
+.wid-meteo-input{
+    margin-left: 5%;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    width: 50%;
+    height: 28px;
+    display: block;
+
+    border-radius: 16px;
+    background-color: rgb(121, 235, 255);
+
+}
+
+.wid-meteo-input input{
+    background-color: transparent;
+    border: transparent;
+    margin-left: 10px;
+    color: white;
+    font-family: var(--font-txt);
+    width: calc(100% - 43px);
+    display: inline-block;
+    transform: translateY(-7px);
+}
+.wid-meteo-input input::-webkit-input-placeholder {
+    color: white;
+    font-family: var(--font-txt);
+    font-weight: bold;
+    display: inline-block;
+}
+
+.wid-meteo-input button{
+    width: 28px;
+    height: 28px;
+    background-color: transparent;
+    border: transparent;
+    display: inline-block;
+    background-image: url("assets/imgs/search_.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 75%;
+}
+
+.wid-meteo-block1{
+    display: inline-block;
+    width: 30%;
+    height: 70%;
+    vertical-align: top;
+    margin-left: 10%;
+}
+.wid-meteo-block2{
+    display: inline-block;
+    width: 50%;
+    height: 70%;
+    vertical-align: top;
+}
+.wid-meteo-block2 h3{
+    padding-top: 10px;
+    font-family: var(--font-title);
+}
+.wid-meteo-block2 p{
+    transform: translateY(-7px);
+    font-family: var(--font-txt);
+}
+.wid-meteo-block2 h4{
+    transform: translateY(-15px);
+}
+.wid-meteo-block2 span{
+    font-size: 20px;
+    margin-left: 10px;
+    font-family: var(--font-txt);
+}
+.wid-meteo-now-img{
+    width: auto;
+    height: 100%;
+    background-position: center;
+}
+
 
 /*------------Connection page------------*/
 .c-main-block {
