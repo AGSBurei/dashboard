@@ -1,6 +1,5 @@
 package com.dashboard.repository;
 
-import com.dashboard.models.User;
 import com.dashboard.models.Widget;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

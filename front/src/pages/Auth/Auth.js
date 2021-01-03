@@ -2,9 +2,11 @@ import React, {useState, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 
 import AuthService from "../../services/auth.service";
-
+import GoogleLogin, {GoogleLogout} from "react-google-login";
 import nullImage from "../../assets/imgs/null.png"
 import Header from "../../components/Header";
+import Axios from "axios";
+import param from "../../param";
 
 const Auth = ({switchDay}) => {
     const history = useHistory()
@@ -17,7 +19,7 @@ const Auth = ({switchDay}) => {
         email: "",
         password: "",
         passwordConfirm: ""
-    })
+    });
     const [quote, setQuote] = useState([
         "Don't have an account?",
         "Create your account!"
@@ -38,8 +40,8 @@ const Auth = ({switchDay}) => {
                     setError(data.message);
                 }
             } else {
-                setError("");
                 console.log("connection data:", data);
+                setError("");
                 history.push("/board");
             }
         }).catch((err) => {
@@ -78,7 +80,8 @@ const Auth = ({switchDay}) => {
         setAuthInfo({...authInfo, [name]: value})
     };
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
         if (inscription) {
             const isRegistered = register();
             if (isRegistered) {
@@ -110,7 +113,32 @@ const Auth = ({switchDay}) => {
         }
         setInscription(!inscription)
 
-    }
+    };
+
+    const onSuccess = (response) => {
+        console.log(response);
+        const idTokenString = response.tokenId
+        const params = new FormData();
+        params.append("idTokenString", response.tokenId);
+        Axios.post(param.oauth, {idTokenString}).then((resp) => {
+            console.log(resp);
+            if (resp.data.accessToken) {
+                localStorage.setItem("user", JSON.stringify(resp.data));
+                setError("");
+                history.push("/board");
+            } else {
+                setSuccess(resp.data.message);
+                setTimeout(() => {
+                    setInscription(false);
+                    toggleInscription();
+                }, 1000)
+            }
+        })
+    };
+
+    const onFailure = (response) => {
+        console.log(response)
+    };
 
     return (
         <div className="bg">
@@ -144,7 +172,7 @@ const Auth = ({switchDay}) => {
 
                             <div>
                                 <input className="c-form-input"
-                                       type="text"
+                                       type="password"
                                        name="password"
                                        onKeyUp={onFormChange}
                                        id="mdp"
@@ -156,7 +184,7 @@ const Auth = ({switchDay}) => {
                             </div>
 
                             <div className="c-form-input-wrapper">
-                                <input className="c-form-input c2" type="text" name="passwordConfirm"
+                                <input className="c-form-input c2" type="password" name="passwordConfirm"
                                        onKeyUp={onFormChange} id="mdp"
                                        placeholder="confirm password"/>
                                 <div className="c-error-zone" id="error-mdp2">
@@ -171,28 +199,20 @@ const Auth = ({switchDay}) => {
                                 success : {success}
                             </div>)}
 
-                            <div className="c-form-input-wrapper-connection">
-                                <div className="c-checkbox-zone">
-                                    <div className="c-checkbox"
-                                         onClick={(event) => event.target.classList.toggle("c-checkbox-")}/>
-                                    <p className="c-checkbox-txt">Stay connected</p>
-                                </div>
-                                <input type="checkbox" className="c-checkbox-inp"/>
-                            </div>
+                            <button type="submit" className="c-form-button" onClick={(event) => onSubmit(event)}>
+                                {inscription ? "Inscription" : "Connection"}
+                            </button>
                         </form>
-                        <button type="button" className="c-form-button" onClick={onSubmit}>
-                            {inscription ? "Inscription" : "Connection"}
-                        </button>
                         <img src={nullImage} alt="Computer Man" className="c-notif"/>
                     </div>
 
                     <div className="c-form-block2">
                         <p>-or connect with-</p>
-                        <div className="c-OOT c-Google"/>
-                        <div className="c-OOT c-Twitter"/>
-                    </div>
-                    <div className="c-form-footer">
-                        <h6>A WebApp created par des beaux gosses</h6>
+                        {/*<div className="c-OOT c-Google"/>*/}
+                        <GoogleLogin
+                            clientId={"133786515991-9rrvm23808737kqbunsh88ukh1cm5g7p.apps.googleusercontent.com"}
+                            onSuccess={onSuccess} onFailure={onFailure}
+                        />
                     </div>
 
                 </div>

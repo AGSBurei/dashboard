@@ -43,8 +43,28 @@ public class WidgetApiController {
     @Autowired
     WidgetRepository widgetRepository;
 
+//    @GetMapping("/movie")
+//    public ResponseEntity<String> searchMovie(HttpServletRequest request) {
+//        Map<String, String> values = GetQueryStrings.getQueryMap(request.getQueryString());
+//
+////      toujours pas sécurisé
+//        String apikey = "ff092ffd7ed5dbf723ebe9ec2c50434b";
+//
+//        try {
+//            HttpResponse<String> response = Unirest.get("https://api.themoviedb.org/3/search/movie?api_key=" + apikey +
+//                    "&language=en-US&query="+values.get("query")+"&page=1")
+//                    .asString();
+//
+//
+//            return ResponseEntity.ok(response.getBody());
+//        } catch (UnirestException e) {
+//            System.out.println("unirest exception:" + e.getMessage());
+//        }
+//        return null;
+//    }
+
     @GetMapping("/news_search")
-    public ResponseEntity<String> search(HttpServletRequest request) {
+    public ResponseEntity<String> searchNews(HttpServletRequest request) {
         Map<String, String> values = GetQueryStrings.getQueryMap(request.getQueryString());
 
 //      Pas sécurisé
@@ -215,6 +235,74 @@ public class WidgetApiController {
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest
                     .get("https://livescore-api.com/api-client/countries/list.json?&key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe")
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/coronavirus/Global_Statistics")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> coronavirusGlobal(@RequestParam String search) throws
+            UnsupportedEncodingException {
+
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("https://covid19-api.org/api/status/" + URLEncoder.encode(search, "UTF-8"))
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/coronavirus/Daily_Statistics")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> coronavirusDaily(@RequestParam String search) throws
+            UnsupportedEncodingException {
+
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("https://covid19-api.org/api/diff/"+search)
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/weather/Now")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> weatherDaily(@RequestParam String search) throws
+            UnsupportedEncodingException {
+
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("http://api.openweathermap.org/data/2.5/weather?q="+ search +"&appid=6b97fa35455d3e49f0de2b88aeba4ee2")
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/weather/Daily")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> weatherWeekly(@RequestParam String lat, String lon) throws
+            UnsupportedEncodingException {
+
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest
+                    .get("https://api.openweathermap.org/data/2.5/onecall?lat=" + URLEncoder.encode(lat, "UTF-8") +"&lon=" + URLEncoder.encode(lon, "UTF-8") + "&exclude=minutely,hourly,alert&appid=6b97fa35455d3e49f0de2b88aeba4ee2")
                     .header("accept", "application/json")
                     .asJson();
             return ResponseEntity.ok(jsonResponse.getBody().toString());

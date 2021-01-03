@@ -33,6 +33,8 @@ public class User {
 
     private boolean is_validated = false;
 
+    private String googleId;
+
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
@@ -40,15 +42,23 @@ public class User {
     private List<Widget> widgets = new ArrayList<>();
 
 
-    public User() {
-    }
-
-    public User(String username, String email, String password, String token, Date tokenExpiration) {
+    public User(String username, String email, String password, String token, Date tokenExpiration, String googleId) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.token= token;
+        this.token = token;
         this.tokenExpiration = tokenExpiration;
+        this.googleId = googleId;
+    }
+
+
+
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
     }
 
     public Date getTokenExpiration() {
@@ -106,9 +116,11 @@ public class User {
     public void setWidgets(List<Widget> widgets) {
         this.widgets = widgets;
     }
+
     public void addWidget(Widget widget) {
         this.widgets.add(widget);
     }
+
     public void removeWidgets(Widget widget) {
         this.widgets.remove(widget);
     }

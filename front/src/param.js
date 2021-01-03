@@ -6,6 +6,10 @@ import NewsWidget from "./components/Widgets/NewsWidget"
 import FootballLiveScoreWidget from "./components/Widgets/FootballLiveScoreWidget";
 import FootballLastMatchsWidget from "./components/Widgets/FootballLastMatchsWidget";
 import MovieFinderWidget from "./components/Widgets/MovieFinderWidget";
+import CoronavirusGlobalWidget from "./components/Widgets/CoronavirusGlobalWidget";
+import CoronavirusDailyWidget from "./components/Widgets/CoronavirusDailyWidget";
+import WeatherNowWidget from "./components/Widgets/WeatherNowWidget";
+import WeatherDailyWidget from "./components/Widgets/WeatherDailyWidget";
 
 const host = "/";
 //const host = "http://localhost:8080/";
@@ -13,6 +17,7 @@ const host = "/";
 export default {
     host: host,
     auth: host + "api/auth/",
+    oauth: host + "api/auth/oauth/google",
     twitter: host + "api/widget/twitter_search",
     stackoverflow: host + "api/widget/stackoverflow/search",
     news: host + "api/widget/news_search",
@@ -73,6 +78,30 @@ export default {
             size: 100,
             component: (widget, saveParams) => <FootballLastMatchsWidget widget={widget} saveParams={saveParams}/>,
         },
+        {
+            name: "coronavirus-global",
+            display_name: "Coronavirus | Globals Statistics",
+            size: 25,
+            component: (widget, saveParams) => <CoronavirusGlobalWidget widget={widget} saveParams={saveParams}/>,
+        },
+        {
+            name: "coronavirus-daily",
+            display_name: "Coronavirus | Daily Statistics",
+            size: 25,
+            component: (widget, saveParams) => <CoronavirusDailyWidget widget={widget} saveParams={saveParams}/>,
+        },
+        {
+            name: "weather-now",
+            display_name: "Weather | Now",
+            size: 25,
+            component: (widget, saveParams) => <WeatherNowWidget widget={widget} saveParams={saveParams}/>,
+        },
+        {
+            name: "weather-daily",
+            display_name: "Weather | Weekly",
+            size: 25,
+            component: (widget, saveParams) => <WeatherDailyWidget widget={widget} saveParams={saveParams}/>,
+        }
     ]
 
 

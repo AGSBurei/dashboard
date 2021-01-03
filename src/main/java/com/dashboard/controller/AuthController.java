@@ -4,6 +4,7 @@ import com.dashboard.models.ERole;
 import com.dashboard.models.Role;
 import com.dashboard.models.User;
 import com.dashboard.payload.request.LoginRequest;
+import com.dashboard.payload.request.OauthLoginRequest;
 import com.dashboard.payload.request.SignupRequest;
 import com.dashboard.payload.response.ErrorResponse;
 import com.dashboard.payload.response.JwtResponse;
@@ -15,8 +16,15 @@ import com.dashboard.security.services.UserDetailsImpl;
 import com.dashboard.utils.EmailSenderImpl;
 import com.dashboard.utils.TokenGenerator;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.util.Utils;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +35,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -59,14 +69,123 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @PostMapping("/oauth/google")
+    public ResponseEntity<?> oauthAuthenticate(@Valid @RequestBody OauthLoginRequest oauthLoginRequest)
+            throws GeneralSecurityException, IOException {
+
+        JsonFactory jsonFactory = new JacksonFactory();
+        HttpTransport httpTransport = Utils.getDefaultTransport();
+
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(httpTransport, jsonFactory)
+                // Specify the CLIENT_ID of the app that accesses the backend:
+                .setAudience(Collections.singletonList("133786515991-9rrvm23808737kqbunsh88ukh1cm5g7p.apps.googleusercontent.com"))
+                // Or, if multiple clients access the backend:
+                //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+                .build();
+
+        GoogleIdToken idToken = verifier.verify(oauthLoginRequest.getIdTokenString());
+        if (idToken != null) {
+            GoogleIdToken.Payload payload = idToken.getPayload();
+
+            String userId = payload.getSubject();
+            System.out.println("User ID: " + userId);
+
+            String email = payload.getEmail();
+            String name = (String) payload.get("name");
+            boolean emailVerified = payload.getEmailVerified();
+
+
+            if (userRepository.existsByGoogleId(userId)) {
+                User user = userRepository.findByGoogleId(userId).orElseThrow(()
+                        -> new UsernameNotFoundException("User Not Found"));
+
+                if (!emailVerified) {
+                    return ResponseEntity
+                            .ok(new ErrorResponse("Your email is not verified", "activated"));
+                }
+
+                Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(name, "motdepasse"));
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                String jwt = jwtUtils.generateJwtToken(authentication);
+
+
+                UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+                List<String> roles = userDetails.getAuthorities().stream()
+                        .map(item -> item.getAuthority())
+                        .collect(Collectors.toList());
+
+                return ResponseEntity.ok(new JwtResponse(
+                        jwt,
+                        userDetails.getId(),
+                        userDetails.getUsername(),
+                        userDetails.getEmail(),
+                        roles
+                ));
+            }
+
+//          Si un email, alors l'utilisateur a déjà un compte donc on l'empêche de se connecter via google
+            if (userRepository.existsByEmail(payload.getEmail())) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new ErrorResponse("Error: Email is already in use!", "email"));
+            }
+
+//          Si on ne trouve pas d'email on crée un compte
+
+
+            LocalDateTime expirationDate = LocalDateTime.now().plus(Duration.of(2, ChronoUnit.HOURS));
+
+            // Create new user's account
+            User user = new User(
+                    name,
+                    email,
+                    encoder.encode("motdepasse"),
+                    TokenGenerator.TokenGenerator(),
+                    Date.from(expirationDate.atZone(ZoneId.systemDefault()).toInstant()), userId);
+
+            SignupRequest signUpRequest = new SignupRequest();
+            Set<String> strRoles = signUpRequest.getRoles();
+            Set<Role> roles = new HashSet<>();
+
+            if (strRoles == null) {
+                Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                roles.add(userRole);
+            } else {
+                strRoles.forEach(role -> {
+                    if ("admin".equals(role)) {
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+                    } else {
+                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(userRole);
+                    }
+                });
+            }
+            user.setRoles(roles);
+            userRepository.save(user);
+            return ResponseEntity.ok(new MessageResponse("User successfully registered with Google!"));
+
+        } else {
+            System.out.println("Invalid ID token.");
+            return ResponseEntity.badRequest().body("Invalid ID Token");
+        }
+    }
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
+
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
@@ -81,11 +200,20 @@ public class AuthController {
                     .ok(new ErrorResponse("Your account is not activated", "activated"));
         }
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles));
+        //Si l'utilisateur est relié à Google alors il ne peut pas se connecter comme ça
+        if (user.getGoogleId() == null) {
+
+            return ResponseEntity.ok(new JwtResponse(jwt,
+                    userDetails.getId(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    roles));
+        } else {
+
+            return ResponseEntity.badRequest().body(new
+                    ErrorResponse("Error: your account is linked to a google account",
+                    "google"));
+        }
     }
 
     @PostMapping("/signup")
@@ -107,11 +235,12 @@ public class AuthController {
         LocalDateTime expirationDate = LocalDateTime.now().plus(Duration.of(2, ChronoUnit.HOURS));
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
+        User user = new User(
+                signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
                 TokenGenerator.TokenGenerator(),
-                Date.from(expirationDate.atZone(ZoneId.systemDefault()).toInstant()));
+                Date.from(expirationDate.atZone(ZoneId.systemDefault()).toInstant()), null);
 
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();

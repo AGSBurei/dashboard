@@ -101,7 +101,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation:2.4.0'
     compileOnly 'org.projectlombok:lombok'
     compile("org.springframework.boot:spring-boot-starter-mail")
-
+    compile 'com.google.api-client:google-api-client:1.30.10'
     compile("org.springframework.boot:spring-boot-starter-mail")
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
