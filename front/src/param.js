@@ -7,7 +7,8 @@ import FootballLiveScoreWidget from "./components/Widgets/FootballLiveScoreWidge
 import FootballLastMatchsWidget from "./components/Widgets/FootballLastMatchsWidget";
 import MovieFinderWidget from "./components/Widgets/MovieFinderWidget";
 
-const host = "http://localhost:8080/";
+const host = "/";
+//const host = "http://localhost:8080/";
 
 export default {
     host: host,
