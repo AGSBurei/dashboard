@@ -203,7 +203,7 @@ const Auth = ({switchDay}) => {
                                 {inscription ? "Inscription" : "Connection"}
                             </button>
                         </form>
-                        <img src={nullImage} alt="Computer Man" className="c-notif"/>
+                        {/*<img src={nullImage} alt="Computer Man" className="c-notif"/>*/}
                     </div>
 
                     <div className="c-form-block2">
