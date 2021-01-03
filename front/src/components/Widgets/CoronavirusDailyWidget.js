@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react"
 import Axios from "axios";
 
+import param from "../../param";
+
 import authHeader from "../../services/auth-header";
 
 const CoronavirusDailyWidget = ({widget = {}, saveParams}) => {
@@ -11,7 +13,7 @@ const CoronavirusDailyWidget = ({widget = {}, saveParams}) => {
     })
 
     const getStatsDaily = (input) =>{
-        Axios.get("http://localhost:8080/api/widget/coronavirus/Daily_Statistics?search="+input, {headers: authHeader()})
+        Axios.get(param.host + "api/widget/coronavirus/Daily_Statistics?search="+input, {headers: authHeader()})
             .then(res => {
                 setResults(res.data);
                 //console.log(res.data);
@@ -281,7 +283,8 @@ const CoronavirusDailyWidget = ({widget = {}, saveParams}) => {
             <div className="wid-covid-block">
                 <h3>New Cases:</h3>
                 <p>{results.new_cases}</p>
-            </div><div className="wid-covid-block">
+            </div>
+            <div className="wid-covid-block">
                 <h3>New Death:</h3>
                 <p>{results.new_deaths}</p>
             </div>

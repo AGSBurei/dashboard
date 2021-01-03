@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import Axios from "axios";
 
 import authHeader from "../../services/auth-header";
+import param from "../../param";
 
 const WeatherDailyWidget = ({widget = {}, saveParams}) => {
 
@@ -137,7 +138,7 @@ const WeatherDailyWidget = ({widget = {}, saveParams}) => {
 
         var input_search = document.getElementById("weather_search2").value;
 
-        Axios.get("http://localhost:8080/api/widget/weather/Now?search="+ input_search , {headers: authHeader()})
+        Axios.get(param.host + "api/widget/weather/Now?search="+ input_search , {headers: authHeader()})
             .then(res => {
                 setPosition(res.data);
                 console.log(position.coord.lon);
@@ -146,7 +147,7 @@ const WeatherDailyWidget = ({widget = {}, saveParams}) => {
             console.log("error:", error)
         })
 
-        // Axios.get("http://localhost:8080/api/widget/weather/Daily?lat=" + position.coord.lon+ "?lon=" + position.coord.lon , {headers: authHeader()})
+        // Axios.get(param.host + "api/widget/weather/Daily?lat=" + position.coord.lon+ "?lon=" + position.coord.lon , {headers: authHeader()})
         Axios.get("https://api.openweathermap.org/data/2.5/onecall?lat=" + position.coord.lat+ "&lon=" + position.coord.lon + "&exclude=minutely,hourly,alert&appid=6b97fa35455d3e49f0de2b88aeba4ee2")
             .then(res => {
                 console.log(res.data);

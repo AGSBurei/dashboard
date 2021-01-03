@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PokemonSearchWidget extends Widget {
-    public PokemonSearchWidget(String name, String description) {
-        this.setName(name);
-        this.setDescription(description);
+    public PokemonSearchWidget() {
+        this.setName("pokemon_search");
+        this.setDescription("search for 1st generation pokemon and get pokemon type");
 
         Map<String, String> paramList = new HashMap<>();
         paramList.put("pokemon", "String");
