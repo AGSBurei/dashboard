@@ -11,7 +11,8 @@ import CoronavirusDailyWidget from "./components/Widgets/CoronavirusDailyWidget"
 import WeatherNowWidget from "./components/Widgets/WeatherNowWidget";
 import WeatherDailyWidget from "./components/Widgets/WeatherDailyWidget";
 
-const host = "http://localhost:8080/";
+const host = "/";
+//const host = "http://localhost:8080/";
 
 export default {
     host: host,

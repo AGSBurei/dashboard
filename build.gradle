@@ -4,6 +4,7 @@ plugins {
     id 'org.asciidoctor.convert' version '1.5.8'
     id 'java'
     id 'war'
+    id "com.github.node-gradle.node" version "2.2.4"
 }
 
 group = 'dash.epitech'
@@ -19,6 +20,60 @@ configurations {
 repositories {
     mavenCentral()
 }
+
+node {
+    // Version of node to use.
+    version = '14.15.1'
+    // If true, it will download node using above parameters.
+    // If false, it will try to use globally installed node.
+    download = true
+    // Base URL for fetching node distributions (change if you have a mirror).
+//    distBaseUrl = 'https://nodejs.org/dist'
+
+    // Set the work directory for unpacking node
+    workDir = file("${project.projectDir}/front/nodejs")
+    // Set the work directory for NPM
+    npmWorkDir = file("${project.projectDir}/front/npm")
+    // Set the work directory where node_modules should be located
+    nodeModulesDir = file("${project.projectDir}/front")
+}
+
+processResources{
+    dependsOn 'copyFrontendToBuild'
+}
+
+task copyFrontendToBuild(type: Copy) {
+    from "$projectDir/front/build/"
+    into "$buildDir/resources/main/static"
+}
+
+task npmBuild(type: NpmTask) {
+    dependsOn('npmInstall2')
+    execOverrides {
+        it.workingDir = '/front'
+    }
+    args = ['run', 'build']
+}
+
+task npmShowVersion(type: NpmTask) {
+    execOverrides {
+        it.ignoreExitValue = true
+        it.workingDir = '/front'
+    }
+    args = ['--version']
+}
+
+task npmInstall2(type: NpmTask) {
+    execOverrides {
+        it.ignoreExitValue = true
+        it.workingDir = '/front'
+    }
+    args = ['install']
+}
+
+bootJar.dependsOn(copyFrontendToBuild)
+compileJava.dependsOn(npmBuild)
+
 
 ext {
     set('snippetsDir', file("build/generated-snippets"))
