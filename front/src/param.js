@@ -7,6 +7,7 @@ import FootballLiveScoreWidget from "./components/Widgets/FootballLiveScoreWidge
 import FootballLastMatchsWidget from "./components/Widgets/FootballLastMatchsWidget";
 import MovieFinderWidget from "./components/Widgets/MovieFinderWidget";
 import SteamGameNews from "./components/Widgets/SteamGameNews";
+import CsGoAchievement from "./components/Widgets/CsGoAchievement";
 const host = "http://localhost:8080/";
 
 export default {
@@ -22,7 +23,9 @@ export default {
     footballLastMatchs: (competitionID) => host + "api/widget/football/last-matchs?competitionID=" + competitionID,
     footballCompetitions: host + "api/widget/football/competitions",
     footballCountries: host + "api/widget/football/countries",
-    steamNews: (gameID) => host + "api/widget/steam/game/news?gameID="+gameID,
+    steamNews:  host + "api/widget/steam/game/news",
+    steamAppList:() => host + "api/widget/steam/game/appList",
+    csgoAch: host + "api/widget/steam/game/achievement",
     widget: {
         save: host + "api/user/widget",
         delete: host + "api/user/widgets/delete",
@@ -77,7 +80,14 @@ export default {
             display_name: "steam game latest news",
             size: 100,
             component:(widget, saveParams) => <SteamGameNews widget={widget} saveParams={saveParams}/>,
+        },
+        {
+            name: "csgo-game-achievement",
+            display_name: "csgo achivement",
+            size: 50,
+            component:(widget, saveParams) => <CsGoAchievement widget={widget} saveParams={saveParams}/>,
         }
+
     ]
 
 
