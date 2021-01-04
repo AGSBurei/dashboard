@@ -184,9 +184,9 @@ public class WidgetApiController {
         try {
             String url = null;
             if (countryID.equals("")) {
-                url = "http://livescore-api.com/api-client/scores/live.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe";
+                url = "http://livescore-api.com/api-client/scores/live.json?key=DKdn9ajv8p31IwH4&secret=9kCwE5HezKRjo9y2TLq2WJy49C6R9NVi";
             } else {
-                url = "http://livescore-api.com/api-client/scores/live.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe&country=" + countryID;
+                url = "http://livescore-api.com/api-client/scores/live.json?key=DKdn9ajv8p31IwH4&secret=9kCwE5HezKRjo9y2TLq2WJy49C6R9NVi&country=" + countryID;
             }
             HttpResponse<JsonNode> jsonResponse = Unirest
                     .get(url)
@@ -204,7 +204,7 @@ public class WidgetApiController {
     public ResponseEntity<String> footballLastMatchs(@RequestParam String competitionID) {
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest
-                    .get("http://livescore-api.com/api-client/scores/history.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe&from=2020-12-10&competition_id=" + competitionID)
+                    .get("http://livescore-api.com/api-client/scores/history.json?key=DKdn9ajv8p31IwH4&secret=9kCwE5HezKRjo9y2TLq2WJy49C6R9NVi&from=2020-12-10&competition_id=" + competitionID)
                     .header("accept", "application/json")
                     .asJson();
             return ResponseEntity.ok(jsonResponse.getBody().toString());
@@ -219,7 +219,7 @@ public class WidgetApiController {
     public ResponseEntity<String> footballCompetitions() {
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest
-                    .get("https://livescore-api.com/api-client/competitions/list.json?key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe&country_id=21")
+                    .get("https://livescore-api.com/api-client/competitions/list.json?key=DKdn9ajv8p31IwH4&secret=9kCwE5HezKRjo9y2TLq2WJy49C6R9NVi&country_id=21")
                     .header("accept", "application/json")
                     .asJson();
             return ResponseEntity.ok(jsonResponse.getBody().toString());
@@ -234,7 +234,7 @@ public class WidgetApiController {
     public ResponseEntity<String> footballCountries() {
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest
-                    .get("https://livescore-api.com/api-client/countries/list.json?&key=Y4AaB2nOyZubwkya&secret=GRNlIKoKRhBHMfpLj0VV2jJBieMOykZe")
+                    .get("https://livescore-api.com/api-client/countries/list.json?&key=DKdn9ajv8p31IwH4&secret=9kCwE5HezKRjo9y2TLq2WJy49C6R9NVi")
                     .header("accept", "application/json")
                     .asJson();
             return ResponseEntity.ok(jsonResponse.getBody().toString());

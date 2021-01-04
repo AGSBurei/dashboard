@@ -18,6 +18,7 @@ const FootballLiveScoreWidget = ({widget, saveParams}) => {
     const getCountries = () => {
         Axios.get(param.footballCountries, {headers: authHeader()})
             .then((res) => {
+                console.log(res.data)
                 const response = res.data
                 if (!response.success) return
                 setCountries(response.data.country)
