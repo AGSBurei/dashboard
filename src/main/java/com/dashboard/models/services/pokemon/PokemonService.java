@@ -2,10 +2,6 @@ package com.dashboard.models.services.pokemon;
 
 import com.dashboard.models.Service;
 import com.dashboard.models.Widget;
-import com.dashboard.models.services.socialmediastats.FacebookStatsWidget;
-import com.dashboard.models.services.socialmediastats.TiktokStatsWidget;
-import com.dashboard.models.services.socialmediastats.TwitterStatsWidget;
-import com.dashboard.models.services.socialmediastats.YoutubeStatsWidget;
 
 import java.util.ArrayList;
 import java.util.List;
