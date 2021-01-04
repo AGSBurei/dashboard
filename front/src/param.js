@@ -11,8 +11,8 @@ import CoronavirusDailyWidget from "./components/Widgets/CoronavirusDailyWidget"
 import WeatherNowWidget from "./components/Widgets/WeatherNowWidget";
 import WeatherDailyWidget from "./components/Widgets/WeatherDailyWidget";
 
-// const host = "/";
-const host = "http://localhost:8080/";
+const host = "/";
+//const host = "http://localhost:8080/";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

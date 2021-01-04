@@ -3,7 +3,6 @@ package com.dashboard.models.services.pokemon;
 import com.dashboard.models.Service;
 import com.dashboard.models.Widget;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
