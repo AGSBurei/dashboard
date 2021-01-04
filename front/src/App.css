@@ -92,7 +92,7 @@ header {
 
 main {
     /*width: 100%;*/
-    height: calc(100vh - 112px);
+    height: calc(100vh - 120px);
     position: relative;
 }
 

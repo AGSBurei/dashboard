@@ -93,9 +93,6 @@ const Board = () => {
                 </div>
                 <button className="add-widget" onClick={toggleShowWidgetList}>Add</button>
             </main>
-            <footer>
-
-            </footer>
         </div>
     );
 };
