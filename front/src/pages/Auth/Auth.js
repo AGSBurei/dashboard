@@ -210,7 +210,7 @@ const Auth = ({switchDay}) => {
                         <p>-or connect with-</p>
                         {/*<div className="c-OOT c-Google"/>*/}
                         <GoogleLogin
-                            clientId={"133786515991-9rrvm23808737kqbunsh88ukh1cm5g7p.apps.googleusercontent.com"}
+                            clientId={"133786515991-vhbm4fi2p6cru5o0sn5ss9aajsmmfpi8.apps.googleusercontent.com"}
                             onSuccess={onSuccess} onFailure={onFailure}
                         />
                     </div>

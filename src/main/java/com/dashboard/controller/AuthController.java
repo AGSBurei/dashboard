@@ -78,7 +78,7 @@ public class AuthController {
 
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(httpTransport, jsonFactory)
                 // Specify the CLIENT_ID of the app that accesses the backend:
-                .setAudience(Collections.singletonList("133786515991-9rrvm23808737kqbunsh88ukh1cm5g7p.apps.googleusercontent.com"))
+                .setAudience(Collections.singletonList("133786515991-vhbm4fi2p6cru5o0sn5ss9aajsmmfpi8.apps.googleusercontent.com"))
                 // Or, if multiple clients access the backend:
                 //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
                 .build();
