@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react"
 import Axios from "axios";
+import param from "../../param";
+
 
 import authHeader from "../../services/auth-header";
 
@@ -11,8 +13,7 @@ const CoronavirusGlobalWidget = ({widget = {}, saveParams}) => {
         })
 
     const getStatsGlobal = (input) =>{
-
-        Axios.get("http://localhost:8080/api/widget/coronavirus/Global_Statistics?search="+ input, {headers: authHeader()})
+        Axios.get(param.host + "api/widget/coronavirus/Global_Statistics?search="+ input, {headers: authHeader()})
             .then(res => {
                 setResults(res.data);
                 //console.log(res.data);

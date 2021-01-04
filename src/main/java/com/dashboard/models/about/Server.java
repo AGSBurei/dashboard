@@ -1,7 +1,13 @@
 package com.dashboard.models.about;
 
 import com.dashboard.models.Service;
-import com.dashboard.models.services.socialmediastats.SocialMediaStatsService;
+import com.dashboard.models.services.coronavirus.CoronavirusService;
+import com.dashboard.models.services.football.FootballService;
+import com.dashboard.models.services.movie.MovieService;
+import com.dashboard.models.services.news.NewsService;
+import com.dashboard.models.services.pokemon.PokemonService;
+import com.dashboard.models.services.stackoverflow.StackoverflowService;
+import com.dashboard.models.services.twitter.TwitterService;
 import com.dashboard.models.services.weather.WeatherService;
 
 import java.util.Date;
@@ -13,9 +19,23 @@ public class Server {
 
     public Server() {
         WeatherService weatherService = new WeatherService();
-        SocialMediaStatsService socialMediaStatsService = new SocialMediaStatsService();
+        PokemonService pokemonService = new PokemonService();
+        TwitterService twitterService = new TwitterService();
+        MovieService movieService = new MovieService();
+        FootballService footballService = new FootballService();
+        StackoverflowService stackOverflowService = new StackoverflowService();
+        NewsService newsService = new NewsService();
+        CoronavirusService coronaVirusService = new CoronavirusService();
+
         this.services.add(weatherService);
-        this.services.add(socialMediaStatsService);
+        this.services.add(pokemonService);
+        this.services.add(twitterService);
+        this.services.add(movieService);
+        this.services.add(footballService);
+        this.services.add(stackOverflowService);
+        this.services.add(newsService);
+        this.services.add(coronaVirusService);
+
         Date date = new Date();
         this.current_time = date.getTime();
 

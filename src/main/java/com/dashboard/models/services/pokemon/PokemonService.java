@@ -12,16 +12,11 @@ import java.util.List;
 
 public class PokemonService extends Service {
     public PokemonService() {
-        this.setName("social_media_stats");
+        this.setName("pokemon");
         List<Widget> widgets = new ArrayList<>();
-        TiktokStatsWidget tiktokStatsWidget = new TiktokStatsWidget();
-        YoutubeStatsWidget youtubeStatsWidget = new YoutubeStatsWidget();
-        FacebookStatsWidget facebookStatsWidget = new FacebookStatsWidget();
-        TwitterStatsWidget twitterStatsWidget = new TwitterStatsWidget();
-        widgets.add(tiktokStatsWidget);
-        widgets.add(facebookStatsWidget);
-        widgets.add(twitterStatsWidget);
-        widgets.add(youtubeStatsWidget);
+
+        PokemonSearchWidget pokemonSearchWidget = new PokemonSearchWidget();
+        widgets.add(pokemonSearchWidget);
         this.setWidgets(widgets);
     }
 }

@@ -11,8 +11,10 @@ public class WeatherService extends Service {
     public WeatherService() {
         this.setName("weather");
         List<Widget> widgets = new ArrayList<>();
-        TemperatureWidget weatherWidget = new TemperatureWidget();
-        widgets.add(weatherWidget);
+        WeatherLiveWidget weatherLiveWidget = new WeatherLiveWidget();
+        WeatherWeekWidget weatherWeekWidget = new WeatherWeekWidget();
+        widgets.add(weatherLiveWidget);
+        widgets.add(weatherWeekWidget);
         this.setWidgets(widgets);
     }
 }
