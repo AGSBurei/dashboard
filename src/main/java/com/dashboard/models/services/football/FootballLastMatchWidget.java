@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class FootballLastMatchWidget extends Widget {
     public FootballLastMatchWidget() {
-        this.setName("coronavirus_day");
-        this.setDescription("see covid cases this day in a country");
+        this.setName("football_last_france");
+        this.setDescription("display last matchs in France.");
 
         Map<String, String> paramList = new HashMap<>();
-        paramList.put("country", "String");
+        paramList.put("competition", "String");
 
         this.setParams(paramList);
     }

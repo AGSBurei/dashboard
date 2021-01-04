@@ -6,8 +6,6 @@ import com.dashboard.models.services.football.FootballService;
 import com.dashboard.models.services.movie.MovieService;
 import com.dashboard.models.services.news.NewsService;
 import com.dashboard.models.services.pokemon.PokemonService;
-import com.dashboard.models.services.socialmediastats.SocialMediaStatsService;
-import com.dashboard.models.services.socialmediastats.TwitterStatsWidget;
 import com.dashboard.models.services.stackoverflow.StackoverflowService;
 import com.dashboard.models.services.twitter.TwitterService;
 import com.dashboard.models.services.weather.WeatherService;
@@ -21,7 +19,6 @@ public class Server {
 
     public Server() {
         WeatherService weatherService = new WeatherService();
-        SocialMediaStatsService socialMediaStatsService = new SocialMediaStatsService();
         PokemonService pokemonService = new PokemonService();
         TwitterService twitterService = new TwitterService();
         MovieService movieService = new MovieService();
@@ -31,7 +28,6 @@ public class Server {
         CoronavirusService coronaVirusService = new CoronavirusService();
 
         this.services.add(weatherService);
-        this.services.add(socialMediaStatsService);
         this.services.add(pokemonService);
         this.services.add(twitterService);
         this.services.add(movieService);

@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class MovieFinderWidget extends Widget {
     public MovieFinderWidget() {
-        this.setName("coronavirus_day");
-        this.setDescription("see covid cases this day in a country");
+        this.setName("movie_finder");
+        this.setDescription("search a movie.");
 
         Map<String, String> paramList = new HashMap<>();
-        paramList.put("country", "String");
+        paramList.put("name", "String");
 
         this.setParams(paramList);
     }

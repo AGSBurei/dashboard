@@ -12,8 +12,10 @@ public class FootballService extends Service {
         this.setName("football");
         List<Widget> widgets = new ArrayList<>();
 
-        PokemonSearchWidget pokemonSearchWidget = new PokemonSearchWidget();
-        widgets.add(pokemonSearchWidget);
+        FootballLiveWidget footballLiveWidget = new FootballLiveWidget();
+        FootballLastMatchWidget footballLastMatchWidget = new FootballLastMatchWidget();
+        widgets.add(footballLiveWidget);
+        widgets.add(footballLastMatchWidget);
         this.setWidgets(widgets);
     }
 }

@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class StackoverflowQuestionWidget extends Widget {
     public StackoverflowQuestionWidget() {
-        this.setName("coronavirus_day");
-        this.setDescription("see covid cases this day in a country");
+        this.setName("stackoverflow_question");
+        this.setDescription("search questions in stackoverflow.");
 
         Map<String, String> paramList = new HashMap<>();
-        paramList.put("country", "String");
+        paramList.put("question", "String");
 
         this.setParams(paramList);
     }

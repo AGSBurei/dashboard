@@ -12,8 +12,8 @@ public class NewsService extends Service {
         this.setName("news");
         List<Widget> widgets = new ArrayList<>();
 
-        PokemonSearchWidget pokemonSearchWidget = new PokemonSearchWidget();
-        widgets.add(pokemonSearchWidget);
+        NewsWidget newsWidget = new NewsWidget();
+        widgets.add(newsWidget);
         this.setWidgets(widgets);
     }
 }

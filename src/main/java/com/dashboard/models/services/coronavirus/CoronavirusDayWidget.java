@@ -8,7 +8,7 @@ import java.util.Map;
 public class CoronavirusDayWidget extends Widget {
     public CoronavirusDayWidget() {
         this.setName("coronavirus_day");
-        this.setDescription("see covid cases this day in a country");
+        this.setDescription("display covid cases this day in a country.");
 
         Map<String, String> paramList = new HashMap<>();
         paramList.put("country", "String");

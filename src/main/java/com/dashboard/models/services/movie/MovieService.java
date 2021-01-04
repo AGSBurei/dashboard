@@ -12,8 +12,8 @@ public class MovieService extends Service {
         this.setName("movie");
         List<Widget> widgets = new ArrayList<>();
 
-        PokemonSearchWidget pokemonSearchWidget = new PokemonSearchWidget();
-        widgets.add(pokemonSearchWidget);
+        MovieFinderWidget movieFinderWidget = new MovieFinderWidget();
+        widgets.add(movieFinderWidget);
         this.setWidgets(widgets);
     }
 }

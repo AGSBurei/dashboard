@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class FootballLiveWidget extends Widget {
     public FootballLiveWidget() {
-        this.setName("coronavirus_day");
-        this.setDescription("see covid cases this day in a country");
+        this.setName("football_live");
+        this.setDescription("display live match around the world or in a country.");
 
         Map<String, String> paramList = new HashMap<>();
         paramList.put("country", "String");

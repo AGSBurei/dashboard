@@ -8,7 +8,7 @@ import java.util.Map;
 public class CoronavirusTotalWidget extends Widget {
     public CoronavirusTotalWidget() {
         this.setName("coronavirus_total");
-        this.setDescription("see total covid case in a country");
+        this.setDescription("display total covid case in a country.");
 
         Map<String, String> paramList = new HashMap<>();
         paramList.put("country", "String");

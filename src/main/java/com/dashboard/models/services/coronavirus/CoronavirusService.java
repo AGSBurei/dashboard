@@ -12,8 +12,10 @@ public class CoronavirusService extends Service {
         this.setName("coronavirus");
         List<Widget> widgets = new ArrayList<>();
 
-        PokemonSearchWidget pokemonSearchWidget = new PokemonSearchWidget();
-        widgets.add(pokemonSearchWidget);
+        CoronavirusDayWidget coronavirusDayWidget = new CoronavirusDayWidget();
+        CoronavirusTotalWidget coronavirusTotalWidget = new CoronavirusTotalWidget();
+        widgets.add(coronavirusDayWidget);
+        widgets.add(coronavirusTotalWidget);
         this.setWidgets(widgets);
     }
 }

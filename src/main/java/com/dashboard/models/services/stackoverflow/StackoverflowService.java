@@ -12,8 +12,8 @@ public class StackoverflowService extends Service {
         this.setName("stackoverflow");
         List<Widget> widgets = new ArrayList<>();
 
-        PokemonSearchWidget pokemonSearchWidget = new PokemonSearchWidget();
-        widgets.add(pokemonSearchWidget);
+        StackoverflowQuestionWidget stackoverflowQuestionWidget = new StackoverflowQuestionWidget();
+        widgets.add(stackoverflowQuestionWidget);
         this.setWidgets(widgets);
     }
 }
