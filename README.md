@@ -1,7 +1,4 @@
-# T-JAV-501-STG-5-1-dashboard-antoine.braillard
-
-### My Dashboard
----
+# My Dashboard
 
 ## Présentation
 My dashboard est un projet dont l’objectif est de fournir aux utilisateurs un tableau personnalisable avec des widgets contenants différentes informations tels que le nombres de cas de covid dans un pays, la météo actuelle dans un lieu donné ou encore des informations sur un pokemon.
