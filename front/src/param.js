@@ -10,9 +10,11 @@ import CoronavirusGlobalWidget from "./components/Widgets/CoronavirusGlobalWidge
 import CoronavirusDailyWidget from "./components/Widgets/CoronavirusDailyWidget";
 import WeatherNowWidget from "./components/Widgets/WeatherNowWidget";
 import WeatherDailyWidget from "./components/Widgets/WeatherDailyWidget";
-
+import CsGoGameNews from "./components/Widgets/CsGoGameNews";
+import CsGoAchievement from "./components/Widgets/CsGoAchievement";
 const host = "/";
 //const host = "http://localhost:8080/";
+
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -29,6 +31,9 @@ export default {
     footballLastMatchs: (competitionID) => host + "api/widget/football/last-matchs?competitionID=" + competitionID,
     footballCompetitions: host + "api/widget/football/competitions",
     footballCountries: host + "api/widget/football/countries",
+    steamNews:  host + "api/widget/steam/game/news",
+    steamAppList:() => host + "api/widget/steam/game/appList",
+    csgoAch: host + "api/widget/steam/game/achievement",
     widget: {
         save: host + "api/user/widget",
         delete: host + "api/user/widgets/delete",
@@ -78,6 +83,11 @@ export default {
             display_name: "Football Last Matchs",
             size: 100,
             component: (widget, saveParams) => <FootballLastMatchsWidget widget={widget} saveParams={saveParams}/>,
+        }, {
+            name: "steam-game-latest-news",
+            display_name: "CsGo latest news",
+            size: 100,
+            component:(widget, saveParams) => <CsGoGameNews widget={widget} saveParams={saveParams}/>,
         },
         {
             name: "coronavirus-global",
@@ -102,7 +112,14 @@ export default {
             display_name: "Weather | Weekly",
             size: 25,
             component: (widget, saveParams) => <WeatherDailyWidget widget={widget} saveParams={saveParams}/>,
+        },
+        {
+            name: "csgo-game-achievement",
+            display_name: "csgo achivement",
+            size: 50,
+            component:(widget, saveParams) => <CsGoAchievement widget={widget} saveParams={saveParams}/>,
         }
+
     ]
 
 
