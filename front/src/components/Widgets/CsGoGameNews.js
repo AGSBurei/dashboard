@@ -4,7 +4,7 @@ import authHeader from "../../services/auth-header";
 import param from "../../param";
 import "./Widgets.style.scss"
 
-const SteamGameNews = ({widget = {}, saveParams}) => {
+const CsGoGameNews = ({widget = {}, saveParams}) => {
 
     //const [games, setGames] = useState([]);
     const [news, setNews] = useState([]);
@@ -55,4 +55,4 @@ const SteamGameNews = ({widget = {}, saveParams}) => {
     )
 
 }
-export default SteamGameNews;
+export default CsGoGameNews;

@@ -6,7 +6,7 @@ import NewsWidget from "./components/Widgets/NewsWidget"
 import FootballLiveScoreWidget from "./components/Widgets/FootballLiveScoreWidget";
 import FootballLastMatchsWidget from "./components/Widgets/FootballLastMatchsWidget";
 import MovieFinderWidget from "./components/Widgets/MovieFinderWidget";
-import SteamGameNews from "./components/Widgets/SteamGameNews";
+import CsGoGameNews from "./components/Widgets/CsGoGameNews";
 import CsGoAchievement from "./components/Widgets/CsGoAchievement";
 const host = "http://localhost:8080/";
 
@@ -79,7 +79,7 @@ export default {
             name: "steam-game-latest-news",
             display_name: "steam game latest news",
             size: 100,
-            component:(widget, saveParams) => <SteamGameNews widget={widget} saveParams={saveParams}/>,
+            component:(widget, saveParams) => <CsGoGameNews widget={widget} saveParams={saveParams}/>,
         },
         {
             name: "csgo-game-achievement",
