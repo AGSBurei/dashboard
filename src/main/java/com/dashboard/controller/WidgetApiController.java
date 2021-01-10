@@ -100,7 +100,6 @@ public class WidgetApiController {
         return null;
     }
 
-
     @GetMapping("/twitter_search")
     public ResponseEntity<String> twitterSearch(HttpServletRequest request) {
         Map<String, String> values = GetQueryStrings.getQueryMap(request.getQueryString());
@@ -160,7 +159,6 @@ public class WidgetApiController {
         return null;
     }
 
-
     @GetMapping("/stackoverflow/search")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> stackOverflowSearch(@RequestParam String search) throws
@@ -176,7 +174,6 @@ public class WidgetApiController {
         }
         return null;
     }
-
 
     @GetMapping("/football/live-score")
     @PreAuthorize("hasRole('USER')")
@@ -313,7 +310,7 @@ public class WidgetApiController {
     }
 
     @GetMapping("/steam/game/news")
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> gameNews(@RequestParam String game) {
         try {
             HttpResponse<JsonNode> jsonNodeHttpResponse = Unirest
@@ -328,7 +325,7 @@ public class WidgetApiController {
     }
 
     @GetMapping("/steam/game/achievement")
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> gameAchievement(@RequestParam String game) {
         try {
             HttpResponse<JsonNode> jsonNodeHttpResponse = Unirest
@@ -343,7 +340,7 @@ public class WidgetApiController {
     }
 
     @GetMapping("/steam/game/appList")
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> steamAppList() {
         Map<Integer, String> game = new HashMap<Integer, String>();
         try {
