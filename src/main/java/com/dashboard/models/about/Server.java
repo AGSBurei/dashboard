@@ -7,6 +7,7 @@ import com.dashboard.models.services.movie.MovieService;
 import com.dashboard.models.services.news.NewsService;
 import com.dashboard.models.services.pokemon.PokemonService;
 import com.dashboard.models.services.stackoverflow.StackoverflowService;
+import com.dashboard.models.services.steamApi.SteamService;
 import com.dashboard.models.services.twitter.TwitterService;
 import com.dashboard.models.services.weather.WeatherService;
 
@@ -26,6 +27,7 @@ public class Server {
         StackoverflowService stackOverflowService = new StackoverflowService();
         NewsService newsService = new NewsService();
         CoronavirusService coronaVirusService = new CoronavirusService();
+        SteamService steamService = new SteamService();
 
         this.services.add(weatherService);
         this.services.add(pokemonService);
@@ -35,6 +37,7 @@ public class Server {
         this.services.add(stackOverflowService);
         this.services.add(newsService);
         this.services.add(coronaVirusService);
+        this.services.add(steamService);
 
         Date date = new Date();
         this.current_time = date.getTime();

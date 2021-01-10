@@ -10,8 +10,12 @@ public class SteamService extends Service {
     public SteamService() {
         this.setName("Steam");
         List<Widget> widgets = new ArrayList<>();
-        GetNewsForApp steamWidget = new GetNewsForApp();
-        widgets.add(steamWidget);
+        GetNewsForApp newsForApp = new GetNewsForApp();
+        GetAchievementGame achievementGame = new GetAchievementGame();
+        GetAppList appList = new GetAppList();
+        widgets.add(newsForApp);
+        widgets.add(achievementGame);
+        widgets.add(appList);
         this.setWidgets(widgets);
     }
 }
