@@ -100,7 +100,6 @@ public class WidgetApiController {
         return null;
     }
 
-
     @GetMapping("/twitter_search")
     public ResponseEntity<String> twitterSearch(HttpServletRequest request) {
         Map<String, String> values = GetQueryStrings.getQueryMap(request.getQueryString());
@@ -160,7 +159,6 @@ public class WidgetApiController {
         return null;
     }
 
-
     @GetMapping("/stackoverflow/search")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> stackOverflowSearch(@RequestParam String search) throws
@@ -176,7 +174,6 @@ public class WidgetApiController {
         }
         return null;
     }
-
 
     @GetMapping("/football/live-score")
     @PreAuthorize("hasRole('USER')")
@@ -308,6 +305,52 @@ public class WidgetApiController {
             return ResponseEntity.ok(jsonResponse.getBody().toString());
         } catch (UnirestException e) {
             System.out.println("unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/steam/game/news")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> gameNews(@RequestParam String game) {
+        try {
+            HttpResponse<JsonNode> jsonNodeHttpResponse = Unirest
+                    .get("https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=" + game + "&count=5")
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonNodeHttpResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("Unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/steam/game/achievement")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> gameAchievement(@RequestParam String game) {
+        try {
+            HttpResponse<JsonNode> jsonNodeHttpResponse = Unirest
+                    .get(" http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + game)
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonNodeHttpResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("Unirest exception:" + e.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/steam/game/appList")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<String> steamAppList() {
+        Map<Integer, String> game = new HashMap<Integer, String>();
+        try {
+            HttpResponse<JsonNode> jsonNodeHttpResponse = Unirest
+                    .get("https://api.steampowered.com/ISteamApps/GetAppList/v2/")
+                    .header("accept", "application/json")
+                    .asJson();
+            return ResponseEntity.ok(jsonNodeHttpResponse.getBody().toString());
+        } catch (UnirestException e) {
+            System.out.println("Unirest exception:" + e.getMessage());
         }
         return null;
     }
