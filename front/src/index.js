@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Helmet } from 'react-helmet';
 import { HashRouter } from "react-router-dom";
 
 
@@ -9,6 +10,9 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
   <React.StrictMode>
       <HashRouter>
+          <Helmet>
+              <title>My Dashboard</title>
+          </Helmet>
           <App />
       </HashRouter>
   </React.StrictMode>,
